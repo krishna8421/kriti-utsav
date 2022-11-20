@@ -15,7 +15,7 @@ export const Footer = () => {
         </div>
         <div className="flex items-center justify-center gap-2">
           <HiOutlineLocationMarker size={20} />
-          <span>
+          <span className="text-center">
             Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar.
           </span>
         </div>

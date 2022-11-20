@@ -3,7 +3,7 @@
 const CUSTOM_CREAM = "#FCEDDC";
 const CUSTOM_GREEN = "#1A8C92";
 const CUSTOM_RED = "#991737";
-const CUSTOM_PURPLE = "#2E1739"
+const CUSTOM_PURPLE = "#2E1739";
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],

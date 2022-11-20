@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 export const NavBar = () => {
   const router = useRouter();
   return (
-    <div className="flex items-center justify-between py-8 m-auto md:max-w-7xl">
+    <div className="m-auto flex items-center justify-between py-8 px-4 md:max-w-7xl">
       <div className="relative h-[65px] w-[105px] cursor-pointer">
         <Image
           src="/logo.png"
@@ -14,7 +14,7 @@ export const NavBar = () => {
           onClick={() => router.push("/")}
         />
       </div>
-      <div className="md:block hidden">
+      <div className="hidden md:block">
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
           onClick={() => router.push("/about")}
