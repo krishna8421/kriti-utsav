@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState, Fragment } from "react";
+import { MdClose } from "react-icons/md";
 import { Dialog, Transition } from "@headlessui/react";
 
 interface EventImageProps {
@@ -59,13 +60,16 @@ export const EventImage = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="border-3 w-full max-w-md transform overflow-hidden rounded-2xl border-solid border-custom-red bg-custom-green p-6 text-left align-middle text-white shadow-xl transition-all">
+                  <div className="flex w-full cursor-pointer justify-end">
+                    <MdClose size={25} onClick={closeModal} />
+                  </div>
                   <Dialog.Title
                     as="h1"
                     className="mb-8 text-center text-3xl font-extrabold text-custom-cream"
                   >
                     {name}
                   </Dialog.Title>
-                  <ul className="text-xl leading-9 font-semibold">
+                  <ul className="text-xl font-semibold leading-9">
                     {description.map((desc, i) => {
                       return <li key={i}>{desc}</li>;
                     })}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { EventImage } from "../components/EventImage";
 import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
+import { useAuth } from "../hooks/useAuth";
 
 const Home: NextPage = () => {
   const description = {
@@ -17,14 +18,24 @@ const Home: NextPage = () => {
       "Folk Orchestra",
       "Western Instrumental (Solo)",
     ],
-    theatre: [],
-    dance: [],
-    literary: [],
-    fineArts: [],
+    theatre: ["One Act Play", "Skits", "Mime", "Mimicry"],
+    dance: ["Folk / Tribal Dance", "Classical Dance"],
+    literary: ["Quiz", "Elocution", "Debate"],
+    fineArts: [
+      "On the Spot Painting",
+      "Collage",
+      "Poster Making",
+      "Clay Modeling",
+      "Cartooning",
+      "Rangoli",
+      "Spot Photography",
+      "Installation",
+      "Mehendi",
+    ],
   };
 
   return (
-    <div className="min-h-screen bg-custom-cream overflow-hidden">
+    <div className="min-h-screen overflow-hidden bg-custom-cream">
       <NavBar />
       <div className="m-auto md:max-w-7xl">
         <main className="flex flex-wrap justify-center gap-8 py-8">
@@ -62,7 +73,7 @@ const Home: NextPage = () => {
         quality={100}
       />
       <div className="bg-custom-red">
-        <div className="m-auto flex flex-col items-center md:max-w-7xl pb-12">
+        <div className="m-auto flex flex-col items-center pb-12 md:max-w-7xl">
           <span className="text-4xl font-bold text-custom-cream">EVENTS</span>
           <div className="flex flex-wrap justify-center gap-12">
             <EventImage

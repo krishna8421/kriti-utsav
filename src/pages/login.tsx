@@ -3,8 +3,17 @@ import Image from "next/image";
 import { Footer } from "../components/Footer";
 import { TextInput, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification } from "@mantine/notifications";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+interface IHandleLogin {
+  username: string;
+  password: string;
+}
 
 const Login = () => {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       username: "",
@@ -17,11 +26,24 @@ const Login = () => {
       },
       password: (value) => {
         if (!value) return "Password is required";
-        if (value.length < 8)
-          return "Password must be at least 8 characters long";
       },
     },
   });
+
+  const handleLogin = async (values: IHandleLogin) => {
+    try {
+      await axios.post("/api/login", values);
+      router.push("/");
+    } catch (err: any) {
+      console.log();
+      showNotification({
+        title: "Error",
+        message: err.response.data.error,
+        color: "red",
+        autoClose: 3 * 1000,
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen overflow-hidden bg-custom-cream">
@@ -52,7 +74,7 @@ const Login = () => {
                 University Login Portal
               </span>
               <form
-                onSubmit={form.onSubmit((values) => console.log(values))}
+                onSubmit={form.onSubmit((values) => handleLogin(values))}
                 className="w-full"
               >
                 <TextInput

@@ -1,8 +1,16 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../hooks/useAuth";
+import Cookies from "js-cookie";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { useState } from "react";
+import { Drawer } from "@mantine/core";
 
 export const NavBar = () => {
+  const { isAuth } = useAuth();
+  const [openMenu, setOpenMenu] = useState(false);
   const router = useRouter();
+
   return (
     <div className="m-auto flex items-center justify-between py-8 px-4 md:max-w-7xl">
       <div className="relative h-[65px] w-[105px] cursor-pointer">
@@ -29,9 +37,9 @@ export const NavBar = () => {
         </span>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-          onClick={() => router.push("/downloads")}
+          onClick={() => router.push("/dashboard")}
         >
-          Downloads
+          Dashboard
         </span>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
@@ -40,12 +48,75 @@ export const NavBar = () => {
           Contact
         </span>
         <span
-          className="mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white"
-          onClick={() => router.push("/login")}
+          className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
+          onClick={() => {
+            if (isAuth) {
+              Cookies.remove("token");
+              router.refresh();
+            } else {
+              router.push("/login");
+            }
+          }}
         >
-          Login
+          {isAuth ? "Logout" : "Login"}
         </span>
       </div>
+      <GiHamburgerMenu
+        size={30}
+        className="cursor-pointer md:hidden"
+        onClick={() => {
+          setOpenMenu(!openMenu);
+        }}
+      />
+      <Drawer
+        opened={openMenu}
+        onClose={() => setOpenMenu(false)}
+        position="left"
+        size="75%"
+        transition="rotate-left"
+        transitionDuration={250}
+        transitionTimingFunction="ease"
+      >
+        <div className="flex h-full flex-col items-center justify-center gap-16">
+          <span
+            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            onClick={() => router.push("/about")}
+          >
+            About
+          </span>
+          <span
+            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            onClick={() => router.push("/events")}
+          >
+            Events
+          </span>
+          <span
+            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            onClick={() => router.push("/dashboard")}
+          >
+            Dashboard
+          </span>
+          <span
+            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            onClick={() => router.push("/contact")}
+          >
+            Contact
+          </span>
+          <span
+            className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
+            onClick={() => {
+              if (isAuth) {
+                Cookies.remove("token");
+                router.refresh();
+              } else {
+                router.push("/login");
+              }
+            }}
+          >
+            {isAuth ? "Logout" : "Login"}
+          </span>
+        </div>
+      </Drawer>
     </div>
   );
 };
