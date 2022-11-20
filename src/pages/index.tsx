@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import Image from "next/image";
 import { EventImage } from "../components/EventImage";
 import { Footer } from "../components/Footer";
+import { NavBar } from "../components/NavBar";
 
 const Home: NextPage = () => {
   const description = {
@@ -23,7 +24,8 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-custom-cream">
+    <div className="min-h-screen bg-custom-cream overflow-hidden">
+      <NavBar />
       <div className="m-auto md:max-w-7xl">
         <main className="flex flex-wrap justify-center gap-8 py-8">
           <div className="relative h-[300px] w-[300px] sm:h-[530px] sm:w-[530px]">
@@ -35,10 +37,10 @@ const Home: NextPage = () => {
             />
           </div>
           <div className="mt-8 w-min lg:mt-28">
-            <h1 className="text-center font-extrabold">
+            <h1 className="text-center font-extrabold text-custom-purple">
               36TH INTER UNIVERSITY EAST ZONE YOUTH FESTIVAL
             </h1>
-            <h3 className="mb-12 text-center text-lg font-bold">
+            <h3 className="mb-12 text-center text-lg font-bold text-custom-purple">
               23rd - 27th December 2022
             </h3>
             <div className="relative h-[100px] w-[325px] sm:h-[160px] sm:w-[520px]">
@@ -60,11 +62,11 @@ const Home: NextPage = () => {
         quality={100}
       />
       <div className="bg-custom-red">
-        <div className="m-auto flex flex-col items-center md:max-w-7xl">
-          <span className="text-4xl font-bold text-white">EVENTS</span>
+        <div className="m-auto flex flex-col items-center md:max-w-7xl pb-12">
+          <span className="text-4xl font-bold text-custom-cream">EVENTS</span>
           <div className="flex flex-wrap justify-center gap-12">
             <EventImage
-              src="e-music.png"
+              src="event-music.png"
               alt="Dance event"
               name="Music"
               description={description.music}
