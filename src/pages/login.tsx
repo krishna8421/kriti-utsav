@@ -6,6 +6,8 @@ import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 interface IHandleLogin {
   username: string;
@@ -29,6 +31,13 @@ const Login = () => {
       },
     },
   });
+
+  const { isAuth } = useAuth();
+  useEffect(() => {
+    if (isAuth) {
+      router.push("/");
+    }
+  }, [isAuth, router]);
 
   const handleLogin = async (values: IHandleLogin) => {
     try {

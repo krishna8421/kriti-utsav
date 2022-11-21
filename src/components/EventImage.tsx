@@ -27,11 +27,14 @@ export const EventImage = ({
   }
   return (
     <>
-      <div
-        className="relative h-[200px] w-[200px] cursor-pointer sm:h-[300px] sm:w-[300px]"
-        onClick={openModal}
-      >
-        <Image src={`/${src}`} alt={alt} fill className="absolute" />
+      <div className="text-center">
+        <div
+          className="relative h-[200px] w-[200px] cursor-pointer sm:h-[300px] sm:w-[300px]"
+          onClick={openModal}
+        >
+          <Image src={`/${src}`} alt={alt} fill className="absolute" />
+        </div>
+        <span className="text-lg font-bold text-white">{name}</span>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

@@ -11,8 +11,8 @@ const Add = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(403).json({ error: "Forbidden" });
   }
 
-  const { username, password, name } = req.body;
-  if (!username || !password || !name) {
+  const { username, password, name, state } = req.body;
+  if (!username || !password || !name || !state) {
     return res.status(400).json({ error: "No data provided" });
   }
 
@@ -29,6 +29,7 @@ const Add = async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         username,
         name,
+        state,
         password: await bycrypt.hash(password, 10),
       },
     });

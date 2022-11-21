@@ -3,7 +3,6 @@ import Image from "next/image";
 import { EventImage } from "../components/EventImage";
 import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
-import { useAuth } from "../hooks/useAuth";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 

@@ -1,12 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
-import { z } from "zod";
 import { type User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { prisma } from "../../server/db/client";
-
-const userSchema = z.object({
-  username: z.string(),
-});
 
 const User = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "GET") {
@@ -28,11 +23,7 @@ const User = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const { username } = req.query;
-  const checkUserData = userSchema.safeParse({ username });
-  if (!checkUserData.success) {
-    return res.status(400).json({ error: "Username not provided" });
-  }
+  const { username } = decoded as { username: string };
 
   const user = await prisma.user.findUnique({
     where: {
@@ -51,6 +42,7 @@ const User = async (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json({
     username: user.username,
     name: user.name,
+    state: user.state,
   });
 };
 
