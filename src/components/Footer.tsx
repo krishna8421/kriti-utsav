@@ -1,6 +1,7 @@
 import React from "react";
 import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
 import { BsTelephone } from "react-icons/bs";
+
 export const Footer = () => {
   return (
     <footer className="bg-custom-green">

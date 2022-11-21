@@ -4,8 +4,20 @@ import { EventImage } from "../components/EventImage";
 import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import { useAuth } from "../hooks/useAuth";
+import { useRef } from "react";
 
 const Home: NextPage = () => {
+  const refEvents = useRef(null);
+  const refContact = useRef(null);
+
+  const handleEventsClick = () => {
+    refEvents.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleContactClick = () => {
+    refContact.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const description = {
     music: [
       "Classical Vocal Solo (Hindustani or Karnatak)",
@@ -36,7 +48,10 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-screen overflow-hidden bg-custom-cream">
-      <NavBar />
+      <NavBar
+        handleEventsClick={handleEventsClick}
+        handleContactClick={handleContactClick}
+      />
       <div className="m-auto md:max-w-7xl">
         <main className="flex flex-wrap justify-center gap-8 py-8">
           <div className="relative h-[300px] w-[300px] sm:h-[530px] sm:w-[530px]">
@@ -73,7 +88,10 @@ const Home: NextPage = () => {
         quality={100}
       />
       <div className="bg-custom-red">
-        <div className="m-auto flex flex-col items-center pb-12 md:max-w-7xl">
+        <div
+          className="m-auto flex flex-col items-center pb-12 md:max-w-7xl"
+          ref={refEvents}
+        >
           <span className="text-4xl font-bold text-custom-cream">EVENTS</span>
           <div className="flex flex-wrap justify-center gap-12">
             <EventImage
@@ -109,7 +127,9 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div ref={refContact}>
+        <Footer />
+      </div>
     </div>
   );
 };

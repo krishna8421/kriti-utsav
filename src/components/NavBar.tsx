@@ -6,7 +6,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { Drawer } from "@mantine/core";
 
-export const NavBar = () => {
+interface Props {
+  handleContactClick?: () => void;
+  handleEventsClick?: () => void;
+}
+
+export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
   const { isAuth } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
   const router = useRouter();
@@ -31,7 +36,13 @@ export const NavBar = () => {
         </span>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-          onClick={() => router.push("/events")}
+          onClick={() => {
+            if (handleEventsClick) {
+              handleEventsClick();
+            } else {
+              router.push("/");
+            }
+          }}
         >
           Events
         </span>
@@ -43,7 +54,13 @@ export const NavBar = () => {
         </span>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-          onClick={() => router.push("/contact")}
+          onClick={() => {
+            if (handleContactClick) {
+              handleContactClick();
+            } else {
+              router.push("/");
+            }
+          }}
         >
           Contact
         </span>
