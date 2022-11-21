@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
-import Cookies from "js-cookie";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { Drawer } from "@mantine/core";
@@ -40,7 +39,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             if (handleEventsClick) {
               handleEventsClick();
             } else {
-              router.push("/");
+              router.push("/?tab=events");
             }
           }}
         >
@@ -48,9 +47,9 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
         </span>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.push("/download")}
         >
-          Dashboard
+          Download
         </span>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
@@ -58,7 +57,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             if (handleContactClick) {
               handleContactClick();
             } else {
-              router.push("/");
+              router.push("/?tab=contact");
             }
           }}
         >
@@ -68,14 +67,13 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
           onClick={() => {
             if (isAuth) {
-              Cookies.remove("token");
-              router.refresh();
+              router.push("/dashboard");
             } else {
               router.push("/login");
             }
           }}
         >
-          {isAuth ? "Logout" : "Login"}
+          {isAuth ? "Dashboard" : "Login"}
         </span>
       </div>
       <GiHamburgerMenu
@@ -103,19 +101,19 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           </span>
           <span
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-            onClick={() => router.push("/events")}
+            onClick={() => router.push("/?tab=events")}
           >
             Events
           </span>
           <span
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/download")}
           >
-            Dashboard
+            Download
           </span>
           <span
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-            onClick={() => router.push("/contact")}
+            onClick={() => router.push("/?tab=contact")}
           >
             Contact
           </span>
@@ -123,14 +121,13 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
             onClick={() => {
               if (isAuth) {
-                Cookies.remove("token");
-                router.refresh();
+                router.push("/dashboard");
               } else {
                 router.push("/login");
               }
             }}
           >
-            {isAuth ? "Logout" : "Login"}
+            {isAuth ? "Dashboard" : "Login"}
           </span>
         </div>
       </Drawer>

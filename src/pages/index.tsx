@@ -4,11 +4,12 @@ import { EventImage } from "../components/EventImage";
 import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import { useAuth } from "../hooks/useAuth";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const refEvents = useRef(null);
-  const refContact = useRef(null);
+  const refEvents = useRef<null | HTMLDivElement>(null);
+  const refContact = useRef<null | HTMLDivElement>(null);
 
   const handleEventsClick = () => {
     refEvents.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,6 +46,17 @@ const Home: NextPage = () => {
       "Mehendi",
     ],
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(router);
+    if (router.query.tab === "events") {
+      handleEventsClick();
+    } else if (router.query.tab === "contact") {
+      handleContactClick();
+    }
+  }, [router]);
 
   return (
     <div className="min-h-screen overflow-hidden bg-custom-cream">
