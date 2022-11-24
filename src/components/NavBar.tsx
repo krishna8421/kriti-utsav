@@ -98,7 +98,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
         >
           Contact
         </span>
-        <span
+        {/* <span
           className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
           onClick={() => {
             if (isAuth) {
@@ -109,7 +109,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           }}
         >
           {isAuth ? "Dashboard" : "Login"}
-        </span>
+        </span> */}
       </div>
       <GiHamburgerMenu
         size={30}
@@ -177,7 +177,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           >
             Contact
           </span>
-          <span
+          {/* <span
             className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
             onClick={() => {
               if (isAuth) {
@@ -188,7 +188,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             }}
           >
             {isAuth ? "Dashboard" : "Login"}
-          </span>
+          </span> */}
         </div>
       </Drawer>
     </div>
