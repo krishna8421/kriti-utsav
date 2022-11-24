@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { event } from "../constants/data";
 
 const Home: NextPage = () => {
   const refEvents = useRef<null | HTMLDivElement>(null);
@@ -18,38 +19,9 @@ const Home: NextPage = () => {
     refContact.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const description = {
-    music: [
-      "Classical Vocal Solo (Hindustani or Karnatak)",
-      "Classical Instrumental Solo (Percussion)",
-      "Classical Instrumental Solo (Non-Percussion)",
-      "Light Vocal (Indian)",
-      "Western Vocal (Solo)",
-      "Group Song (Indian)",
-      "Group Song (Western)",
-      "Folk Orchestra",
-      "Western Instrumental (Solo)",
-    ],
-    theatre: ["One Act Play", "Skits", "Mime", "Mimicry"],
-    dance: ["Folk / Tribal Dance", "Classical Dance"],
-    literary: ["Quiz", "Elocution", "Debate"],
-    fineArts: [
-      "On the Spot Painting",
-      "Collage",
-      "Poster Making",
-      "Clay Modeling",
-      "Cartooning",
-      "Rangoli",
-      "Spot Photography",
-      "Installation",
-      "Mehendi",
-    ],
-  };
-
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router);
     if (router.query.tab === "events") {
       handleEventsClick();
     } else if (router.query.tab === "contact") {
@@ -109,31 +81,31 @@ const Home: NextPage = () => {
               src="event-music.png"
               alt="Dance event"
               name="Music"
-              description={description.music}
+              description={event.music}
             />
             <EventImage
               src="event-fineArts.png"
               alt="Fine Arts event"
               name="Fine Arts"
-              description={description.fineArts}
+              description={event.fineArts}
             />
             <EventImage
               src="event-theatre.png"
               alt="Theatre event"
               name="Theatre"
-              description={description.theatre}
+              description={event.theatre}
             />
             <EventImage
               src="event-dance.png"
               alt="Dance event"
               name="Dance"
-              description={description.dance}
+              description={event.dance}
             />
             <EventImage
               src="event-literary.png"
               alt="Literary event"
               name="Literary"
-              description={description.literary}
+              description={event.literary}
             />
           </div>
         </div>

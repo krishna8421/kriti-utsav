@@ -1,0 +1,27 @@
+export const event = {
+  music: [
+    "Classical Vocal Solo (Hindustani or Karnatak)",
+    "Classical Instrumental Solo (Percussion)",
+    "Classical Instrumental Solo (Non-Percussion)",
+    "Light Vocal (Indian)",
+    "Western Vocal (Solo)",
+    "Group Song (Indian)",
+    "Group Song (Western)",
+    "Folk Orchestra",
+    "Western Instrumental (Solo)",
+  ],
+  theatre: ["One Act Play", "Skits", "Mime", "Mimicry"],
+  dance: ["Folk / Tribal Dance", "Classical Dance"],
+  literary: ["Quiz", "Elocution", "Debate"],
+  fineArts: [
+    "On the Spot Painting",
+    "Collage",
+    "Poster Making",
+    "Clay Modeling",
+    "Cartooning",
+    "Rangoli",
+    "Spot Photography",
+    "Installation",
+    "Mehendi",
+  ],
+};

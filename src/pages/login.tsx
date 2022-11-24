@@ -42,9 +42,8 @@ const Login = () => {
   const handleLogin = async (values: IHandleLogin) => {
     try {
       await axios.post("/api/login", values);
-      router.push("/");
+      router.push("/dashboard");
     } catch (err: any) {
-      console.log();
       showNotification({
         title: "Error",
         message: err.response.data.error,

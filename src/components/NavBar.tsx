@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
-import { Drawer } from "@mantine/core";
+import { Drawer, Menu } from "@mantine/core";
 
 interface Props {
   handleContactClick?: () => void;
@@ -45,12 +45,47 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
         >
           Events
         </span>
-        <span
-          className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-          onClick={() => router.push("/download")}
-        >
-          Download
-        </span>
+        <Menu shadow="md" width={200}>
+          <Menu.Target>
+            <span className="mr-8 cursor-pointer text-lg font-bold text-custom-purple">
+              Download
+            </span>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Item
+              onClick={() => {
+                window && window.open("/Curriculam-Vitae.pdf");
+              }}
+            >
+              Curricula Vitae
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                window && window.open("/Eligibility-Certificate.pdf");
+              }}
+            >
+              Eligibility Certificate
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                window && window.open("/CheckList-KritiUtsav.pdf");
+              }}
+            >
+              CheckList Kriti Utsav
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                window &&
+                  window.open(
+                    "/Kritiutsav-Event-Rules-and-Regulations-Website.pdf"
+                  );
+              }}
+            >
+              Kritiutsav Event Rules and Regulations Website
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
         <span
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
           onClick={() => {
@@ -105,12 +140,37 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           >
             Events
           </span>
-          <span
-            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
-            onClick={() => router.push("/download")}
-          >
-            Download
-          </span>
+          <Menu shadow="md" width={200}>
+            <Menu.Target>
+              <span className="mr-8 cursor-pointer text-lg font-bold text-custom-purple">
+                Download
+              </span>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Item
+                onClick={() => {
+                  window && window.open("/Curriculam-Vitae.pdf");
+                }}
+              >
+                Curricula Vitae
+              </Menu.Item>
+              <Menu.Item
+                onClick={() => {
+                  window && window.open("/Eligibility-Certificate.pdf");
+                }}
+              >
+                Eligibility Certificate
+              </Menu.Item>
+              <Menu.Item
+                onClick={() => {
+                  window && window.open("/CheckList-KritiUtsav.pdf");
+                }}
+              >
+                CheckList Kriti Utsav
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
           <span
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/?tab=contact")}

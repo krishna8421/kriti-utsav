@@ -8,9 +8,85 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  state    String
-  username String @unique
-  password String
+  id    String  @id @default(uuid())
+  name  String
+  state String?
+
+  username       String        @unique
+  password       String
+  UserResponse   UserResponse? @relation(fields: [userResponseId], references: [id])
+  userResponseId String?       @unique
+}
+
+enum TRAVEL_MODE {
+  BUS
+  TRAIN
+  FLIGHT
+}
+
+model UserResponse {
+  id String @id @default(uuid())
+
+  contingentStrength    Int
+  totalContingentMale   Int
+  totalContingentFemale Int
+
+  arrivalDate   String
+  arrivalTime   String
+  arrivalMode   TRAVEL_MODE
+  departureDate String
+  departureTime String
+  departureMode TRAVEL_MODE
+
+  eligibilityCertificatesUrl String
+  CurriculumVitaeUrl         String
+
+  totalAmount Int
+
+  transactionNumber   String
+  transactionPhotoUrl String
+
+  ContingentInCharge   ContingentInCharge[]
+  ParticipationDetails ParticipationDetails[]
+  User                 User?
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+  OTHERS
+}
+
+model ContingentInCharge {
+  id             String        @id @default(uuid())
+  name           String
+  email          String
+  mobile         String
+  gender         GENDER
+  address        String
+  photoUrl       String
+  UserResponse   UserResponse? @relation(fields: [userResponseId], references: [id])
+  userResponseId String?
+}
+
+enum EVENT_TYPE {
+  FINE_ARTS
+  LITERARY
+  MUSIC
+  DANCE
+  THEATRE
+}
+
+model ParticipationDetails {
+  id                  String     @id @default(uuid())
+  eventType           EVENT_TYPE
+  event               String
+  name                String
+  gender              GENDER
+  DOB                 String
+  modeOfParticipation String
+  photoUrl            String
+
+  UserResponse   UserResponse? @relation(fields: [userResponseId], references: [id])
+  userResponseId String?
 }
