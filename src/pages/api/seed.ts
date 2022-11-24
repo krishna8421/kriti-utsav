@@ -1,6 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
-import { finalUniversityData } from "../../constants/data";
+// import { finalUniversityData } from "../../constants/data";
 import bycrypt from "bcrypt";
 
 const Seed = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -14,17 +14,17 @@ const Seed = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     await prisma.user.deleteMany();
-    finalUniversityData.map(async (university) => {
-      const { name, username, password } = university;
-      const hashedPassword = await bycrypt.hash(password, 10);
-      await prisma.user.create({
-        data: {
-          name,
-          username,
-          password: hashedPassword,
-        },
-      });
-    });
+    // finalUniversityData.map(async (university) => {
+    //   const { name, username, password } = university;
+    //   const hashedPassword = await bycrypt.hash(password, 10);
+    //   await prisma.user.create({
+    //     data: {
+    //       name,
+    //       username,
+    //       password: hashedPassword,
+    //     },
+    //   });
+    // });
     return res.status(200).json({ message: `Seeded all user` });
   } catch (err) {
     console.log(err);
