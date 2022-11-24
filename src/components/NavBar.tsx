@@ -58,7 +58,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
                 window && window.open("/Curriculam-Vitae.pdf");
               }}
             >
-              Curricula Vitae
+              Curriculum Vitae
             </Menu.Item>
             <Menu.Item
               onClick={() => {
@@ -69,20 +69,20 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             </Menu.Item>
             <Menu.Item
               onClick={() => {
-                window && window.open("/CheckList-KritiUtsav.pdf");
-              }}
-            >
-              CheckList Kriti Utsav
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => {
                 window &&
                   window.open(
                     "/Kritiutsav-Event-Rules-and-Regulations-Website.pdf"
                   );
               }}
             >
-              Kritiutsav Event Rules and Regulations Website
+              Event Rules and Regulations
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                window && window.open("/CheckList-KritiUtsav.pdf");
+              }}
+            >
+              CheckList
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
