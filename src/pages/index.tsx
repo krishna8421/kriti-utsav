@@ -35,9 +35,9 @@ const Home: NextPage = () => {
         handleEventsClick={handleEventsClick}
         handleContactClick={handleContactClick}
       />
-      <div className="m-auto md:max-w-7xl">
-        <main className="flex flex-wrap justify-center gap-8 py-8">
-          <div className="relative h-[300px] w-[300px] sm:h-[530px] sm:w-[530px]">
+      <div className="m-auto md:max-w-6xl">
+        <main className="flex w-full flex-wrap justify-center gap-4 py-6 md:gap-20">
+          <div className="relative h-[250px]  w-screen sm:h-[500px] sm:w-[500px]">
             <Image
               src="/home-main-image.png"
               alt="Home main image"
@@ -45,14 +45,17 @@ const Home: NextPage = () => {
               className="absolute"
             />
           </div>
-          <div className="mt-8 w-min lg:mt-28">
-            <h1 className="text-center font-extrabold text-custom-purple">
+          <div className="mt-6 w-min lg:mt-12">
+            <h1 className="text-center text-3xl font-extrabold text-custom-purple">
               36TH INTER UNIVERSITY EAST ZONE YOUTH FESTIVAL
             </h1>
-            <h3 className="mb-12 text-center text-lg font-bold text-custom-purple">
+            <h3 className="mb-8 text-center text-lg font-bold text-custom-purple">
               23rd - 27th December 2022
             </h3>
-            <div className="relative h-[100px] w-[325px] sm:h-[160px] sm:w-[520px]">
+            <h3 className="mb-12 text-center text-lg font-bold text-custom-red">
+              Registrations will be live soon!
+            </h3>
+            <div className="relative h-[80px] w-[260px] sm:h-[140px] sm:w-[455px]">
               <Image
                 src="/home-about-image.png"
                 alt="Home about image"
@@ -63,13 +66,17 @@ const Home: NextPage = () => {
           </div>
         </main>
       </div>
+      {/* <div className="relative h-[80px] w-[260px] sm:h-[400px] sm:w-screen"> */}
       <Image
         src="/border-image.png"
         alt="Border image"
         width={1920}
         height={400}
         quality={100}
+        // fill
+        // className="absolute"
       />
+      {/* </div> */}
       <div className="bg-custom-red">
         <div
           className="m-auto flex flex-col items-center pb-12 md:max-w-7xl"

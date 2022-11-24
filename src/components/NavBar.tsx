@@ -17,7 +17,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
 
   return (
     <div className="m-auto flex items-center justify-between py-8 px-4 md:max-w-7xl">
-      <div className="relative h-[65px] w-[105px] cursor-pointer">
+      <div className="relative h-[60px] w-[96.6px] cursor-pointer">
         <Image
           src="/logo.png"
           alt="Logo"
