@@ -1,10 +1,12 @@
-import { Tabs, Button, InputBase, Input } from "@mantine/core";
+import { Tabs, Button, InputBase, Input, Select } from "@mantine/core";
 import { GoDiffAdded } from "react-icons/go";
 import InputMask from "react-input-mask";
 import { FileInput } from "@mantine/core";
 import { BiCloudUpload } from "react-icons/bi";
 import { event } from "../constants/data";
 import { useState } from "react";
+import { MdArrowDropDown } from "react-icons/md";
+import { showNotification } from "@mantine/notifications";
 
 interface Props {
   participationDetails: any;
@@ -55,30 +57,22 @@ export const ParticipationDetails = ({
           <div className="mx-4">
             <Tabs.Panel value="fine-arts">
               <div className="flex justify-around gap-4">
-                <Input.Wrapper id="fine-arts-event" required>
-                  <InputBase
-                    component="select"
-                    id="fine-arts-event"
-                    // @ts-ignore
-                    value={tempValue.event ?? ""}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        eventType: "FINE_ARTS",
-                        event: e.target.value,
-                      });
-                    }}
-                  >
-                    {event.fineArts.map((d, i) => (
-                      <option
-                        key={i}
-                        value={d.toLowerCase().replace(/[^a-z]/g, "-")}
-                      >
-                        {d}
-                      </option>
-                    ))}
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Event"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      eventType: "FINE_ARTS",
+                      event: e,
+                    });
+                  }}
+                  data={[
+                    ...event.fineArts.map((d) => ({
+                      value: d.toLowerCase().replace(/[^a-z]/g, "-"),
+                      label: d,
+                    })),
+                  ]}
+                />
 
                 <Input.Wrapper id="name" required>
                   <Input
@@ -94,26 +88,20 @@ export const ParticipationDetails = ({
                     }}
                   />
                 </Input.Wrapper>
-
-                <Input.Wrapper id="gender" required>
-                  <InputBase
-                    component="select"
-                    id="gender"
-                    // @ts-ignore
-                    value={tempValue.gender ?? "male"}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        gender: e.target.value,
-                      });
-                    }}
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
-                  </InputBase>
-                </Input.Wrapper>
-
+                <Select
+                  placeholder="Gender"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      gender: e,
+                    });
+                  }}
+                  data={[
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                    { value: "others", label: "Others" },
+                  ]}
+                />
                 <Input.Wrapper id="dob" required>
                   <InputBase
                     id="dob"
@@ -131,32 +119,34 @@ export const ParticipationDetails = ({
                   />
                 </Input.Wrapper>
 
-                <Input.Wrapper id="mode-of-participation" required>
-                  <InputBase
-                    component="select"
-                    id="mode-of-participation"
-                    // @ts-ignore
-                    value={tempValue.modeOfParticipation ?? "participant"}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        modeOfParticipation: e.target.value,
-                      });
-                    }}
-                  >
-                    <option value="participant">Participant</option>
-                    <option value="student-accompanist">
-                      Student Accompanist
-                    </option>
-                    <option value="professional-accompanist-outside">
-                      Professional Accompanist (Outside)
-                    </option>
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      modeOfParticipation: e,
+                    });
+                  }}
+                  data={[
+                    { value: "participant", label: "Participant" },
+                    {
+                      value: "student-accompanist",
+                      label: "Student Accompanist",
+                    },
+                    {
+                      value: "professional-accompanist-outside",
+                      label: "Professional Accompanist Outside",
+                    },
+                  ]}
+                />
 
                 <FileInput
                   accept="image/png,image/jpeg,image/jpg"
                   placeholder="Upload Photo"
+                  styles={{
+                    input: {
+                      border: "2px solid #2E1739",
+                    },
+                  }}
                   icon={<BiCloudUpload size={14} />}
                   // @ts-ignore
                   value={tempValue.photoUrl ?? null}
@@ -171,30 +161,22 @@ export const ParticipationDetails = ({
             </Tabs.Panel>
             <Tabs.Panel value="literary">
               <div className="flex justify-around gap-4">
-                <Input.Wrapper id="literary-event" required>
-                  <InputBase
-                    component="select"
-                    id="literary-event"
-                    // @ts-ignore
-                    value={tempValue.event ?? ""}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        eventType: "LITERARY",
-                        event: e.target.value,
-                      });
-                    }}
-                  >
-                    {event.literary.map((d, i) => (
-                      <option
-                        key={i}
-                        value={d.toLowerCase().replace(/[^a-z]/g, "-")}
-                      >
-                        {d}
-                      </option>
-                    ))}
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Event"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      eventType: "LITERARY",
+                      event: e,
+                    });
+                  }}
+                  data={[
+                    ...event.literary.map((d) => ({
+                      value: d.toLowerCase().replace(/[^a-z]/g, "-"),
+                      label: d,
+                    })),
+                  ]}
+                />
 
                 <Input.Wrapper id="name" required>
                   <Input
@@ -210,25 +192,20 @@ export const ParticipationDetails = ({
                     }}
                   />
                 </Input.Wrapper>
-
-                <Input.Wrapper id="gender" required>
-                  <InputBase
-                    component="select"
-                    id="gender"
-                    // @ts-ignore
-                    value={tempValue.gender ?? "male"}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        gender: e.target.value,
-                      });
-                    }}
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Gender"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      gender: e,
+                    });
+                  }}
+                  data={[
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                    { value: "others", label: "Others" },
+                  ]}
+                />
 
                 <Input.Wrapper id="dob" required>
                   <InputBase
@@ -251,6 +228,7 @@ export const ParticipationDetails = ({
                   <InputBase
                     component="select"
                     id="mode-of-participation"
+                    rightSection={<MdArrowDropDown size={14} />}
                     // @ts-ignore
                     value={tempValue.modeOfParticipation ?? "participant"}
                     onChange={(e) => {
@@ -273,6 +251,11 @@ export const ParticipationDetails = ({
                 <FileInput
                   accept="image/png,image/jpeg,image/jpg"
                   placeholder="Upload Photo"
+                  styles={{
+                    input: {
+                      border: "2px solid #2E1739",
+                    },
+                  }}
                   icon={<BiCloudUpload size={14} />}
                   // @ts-ignore
                   value={tempValue.photoUrl ?? null}
@@ -287,31 +270,22 @@ export const ParticipationDetails = ({
             </Tabs.Panel>
             <Tabs.Panel value="music">
               <div className="flex justify-around gap-4">
-                <Input.Wrapper id="music-event" required>
-                  <InputBase
-                    component="select"
-                    id="music-event"
-                    // @ts-ignore
-                    value={tempValue.event ?? ""}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        eventType: "MUSIC",
-                        event: e.target.value,
-                      });
-                    }}
-                  >
-                    {event.music.map((d, i) => (
-                      <option
-                        key={i}
-                        value={d.toLowerCase().replace(/[^a-z]/g, "-")}
-                      >
-                        {d}
-                      </option>
-                    ))}
-                  </InputBase>
-                </Input.Wrapper>
-
+                <Select
+                  placeholder="Event"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      eventType: "MUSIC",
+                      event: e,
+                    });
+                  }}
+                  data={[
+                    ...event.music.map((d) => ({
+                      value: d.toLowerCase().replace(/[^a-z]/g, "-"),
+                      label: d,
+                    })),
+                  ]}
+                />
                 <Input.Wrapper id="name" required>
                   <Input
                     id="name"
@@ -327,24 +301,20 @@ export const ParticipationDetails = ({
                   />
                 </Input.Wrapper>
 
-                <Input.Wrapper id="gender" required>
-                  <InputBase
-                    component="select"
-                    id="gender"
-                    // @ts-ignore
-                    value={tempValue.gender ?? "male"}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        gender: e.target.value,
-                      });
-                    }}
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Gender"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      gender: e,
+                    });
+                  }}
+                  data={[
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                    { value: "others", label: "Others" },
+                  ]}
+                />
 
                 <Input.Wrapper id="dob" required>
                   <InputBase
@@ -367,6 +337,7 @@ export const ParticipationDetails = ({
                   <InputBase
                     component="select"
                     id="mode-of-participation"
+                    rightSection={<MdArrowDropDown size={14} />}
                     // @ts-ignore
                     value={tempValue.modeOfParticipation ?? "participant"}
                     onChange={(e) => {
@@ -389,6 +360,11 @@ export const ParticipationDetails = ({
                 <FileInput
                   accept="image/png,image/jpeg,image/jpg"
                   placeholder="Upload Photo"
+                  styles={{
+                    input: {
+                      border: "2px solid #2E1739",
+                    },
+                  }}
                   icon={<BiCloudUpload size={14} />}
                   // @ts-ignore
                   value={tempValue.photoUrl ?? null}
@@ -403,31 +379,22 @@ export const ParticipationDetails = ({
             </Tabs.Panel>
             <Tabs.Panel value="dance">
               <div className="flex justify-around gap-4">
-                <Input.Wrapper id="dance-event" required>
-                  <InputBase
-                    component="select"
-                    id="dance-event"
-                    // @ts-ignore
-                    value={tempValue.event ?? ""}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        eventType: "DANCE",
-                        event: e.target.value,
-                      });
-                    }}
-                  >
-                    {event.dance.map((d, i) => (
-                      <option
-                        key={i}
-                        value={d.toLowerCase().replace(/[^a-z]/g, "-")}
-                      >
-                        {d}
-                      </option>
-                    ))}
-                  </InputBase>
-                </Input.Wrapper>
-
+                <Select
+                  placeholder="Event"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      eventType: "DANCE",
+                      event: e,
+                    });
+                  }}
+                  data={[
+                    ...event.dance.map((d) => ({
+                      value: d.toLowerCase().replace(/[^a-z]/g, "-"),
+                      label: d,
+                    })),
+                  ]}
+                />
                 <Input.Wrapper id="name" required>
                   <Input
                     id="name"
@@ -443,24 +410,20 @@ export const ParticipationDetails = ({
                   />
                 </Input.Wrapper>
 
-                <Input.Wrapper id="gender" required>
-                  <InputBase
-                    component="select"
-                    id="gender"
-                    // @ts-ignore
-                    value={tempValue.gender ?? "male"}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        gender: e.target.value,
-                      });
-                    }}
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Gender"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      gender: e,
+                    });
+                  }}
+                  data={[
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                    { value: "others", label: "Others" },
+                  ]}
+                />
 
                 <Input.Wrapper id="dob" required>
                   <InputBase
@@ -483,6 +446,7 @@ export const ParticipationDetails = ({
                   <InputBase
                     component="select"
                     id="mode-of-participation"
+                    rightSection={<MdArrowDropDown size={14} />}
                     // @ts-ignore
                     value={tempValue.modeOfParticipation ?? "participant"}
                     onChange={(e) => {
@@ -505,6 +469,11 @@ export const ParticipationDetails = ({
                 <FileInput
                   accept="image/png,image/jpeg,image/jpg"
                   placeholder="Upload Photo"
+                  styles={{
+                    input: {
+                      border: "2px solid #2E1739",
+                    },
+                  }}
                   icon={<BiCloudUpload size={14} />}
                   // @ts-ignore
                   value={tempValue.photoUrl ?? null}
@@ -519,30 +488,22 @@ export const ParticipationDetails = ({
             </Tabs.Panel>
             <Tabs.Panel value="theatre">
               <div className="flex justify-around gap-4">
-                <Input.Wrapper id="theatre-event" required>
-                  <InputBase
-                    component="select"
-                    id="theatre-event"
-                    // @ts-ignore
-                    value={tempValue.event ?? ""}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        eventType: "THEATRE",
-                        event: e.target.value,
-                      });
-                    }}
-                  >
-                    {event.theatre.map((d, i) => (
-                      <option
-                        key={i}
-                        value={d.toLowerCase().replace(/[^a-z]/g, "-")}
-                      >
-                        {d}
-                      </option>
-                    ))}
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Event"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      eventType: "THEATRE",
+                      event: e,
+                    });
+                  }}
+                  data={[
+                    ...event.theatre.map((d) => ({
+                      value: d.toLowerCase().replace(/[^a-z]/g, "-"),
+                      label: d,
+                    })),
+                  ]}
+                />
 
                 <Input.Wrapper id="name" required>
                   <Input
@@ -559,24 +520,20 @@ export const ParticipationDetails = ({
                   />
                 </Input.Wrapper>
 
-                <Input.Wrapper id="gender" required>
-                  <InputBase
-                    component="select"
-                    id="gender"
-                    // @ts-ignore
-                    value={tempValue.gender ?? "male"}
-                    onChange={(e) => {
-                      setTempValue({
-                        ...tempValue,
-                        gender: e.target.value,
-                      });
-                    }}
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
-                  </InputBase>
-                </Input.Wrapper>
+                <Select
+                  placeholder="Gender"
+                  onChange={(e) => {
+                    setTempValue({
+                      ...tempValue,
+                      gender: e,
+                    });
+                  }}
+                  data={[
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                    { value: "others", label: "Others" },
+                  ]}
+                />
 
                 <Input.Wrapper id="dob" required>
                   <InputBase
@@ -599,6 +556,7 @@ export const ParticipationDetails = ({
                   <InputBase
                     component="select"
                     id="mode-of-participation"
+                    rightSection={<MdArrowDropDown size={14} />}
                     // @ts-ignore
                     value={tempValue.modeOfParticipation ?? "participant"}
                     onChange={(e) => {
@@ -621,6 +579,11 @@ export const ParticipationDetails = ({
                 <FileInput
                   accept="image/png,image/jpeg,image/jpg"
                   placeholder="Upload Photo"
+                  styles={{
+                    input: {
+                      border: "2px solid #2E1739",
+                    },
+                  }}
                   icon={<BiCloudUpload size={14} />}
                   // @ts-ignore
                   value={tempValue.photoUrl ?? null}
@@ -653,7 +616,9 @@ export const ParticipationDetails = ({
                 <tbody>
                   {participationDetails.map((d: any, i: number) => (
                     <tr key={i}>
-                      <td className="px-8">{d.eventType.replace(/_/g, " ")}</td>
+                      <td className="px-8">
+                        {d.eventType?.replace(/_/g, " ")}
+                      </td>
                       <td className="px-8">
                         {(d.event[0].toUpperCase() + d.event.slice(1)).replace(
                           /-/g,
@@ -680,6 +645,45 @@ export const ParticipationDetails = ({
               className="bg-custom-cream text-custom-red hover:bg-custom-cream/95"
               leftIcon={<GoDiffAdded />}
               onClick={() => {
+                const {
+                  // @ts-ignore
+                  event,
+                  // @ts-ignore
+                  name,
+                  // @ts-ignore
+                  gender,
+                  // @ts-ignore
+                  DOB,
+                  // @ts-ignore
+                  modeOfParticipation,
+                  // @ts-ignore
+                  photoUrl,
+                } = tempValue;
+
+                if (
+                  !event ||
+                  !name ||
+                  !gender ||
+                  !DOB ||
+                  !modeOfParticipation ||
+                  !photoUrl
+                ) {
+                  console.log({
+                    event,
+                    name,
+                    gender,
+                    DOB,
+                    modeOfParticipation,
+                    photoUrl,
+                  });
+                  showNotification({
+                    title: "Error",
+                    message: "Please fill all the fields to add participants",
+                    color: "red",
+                    autoClose: 3 * 1000,
+                  });
+                  return;
+                }
                 setParticipationDetails([...participationDetails, tempValue]);
                 setTempValue({});
               }}

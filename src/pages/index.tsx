@@ -37,7 +37,7 @@ const Home: NextPage = () => {
       />
       <div className="m-auto md:max-w-6xl">
         <main className="flex w-full flex-wrap justify-center gap-4 py-6 md:gap-20">
-          <div className="relative h-[250px]  w-screen sm:h-[500px] sm:w-[500px]">
+          <div className="relative h-[250px] w-[250px] sm:h-[500px] sm:w-[500px]">
             <Image
               src="/home-main-image.png"
               alt="Home main image"
