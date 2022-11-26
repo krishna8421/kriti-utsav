@@ -27,7 +27,15 @@ const User = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const user = await prisma.user.findUnique({
     where: {
-      username: username as string,
+      username: "k",
+    },
+    include: {
+      UserResponse: {
+        include: {
+          ContingentInCharge: true,
+          ParticipationDetails: true,
+        },
+      },
     },
   });
 
@@ -35,14 +43,13 @@ const User = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(404).json({ error: "User not found" });
   }
 
-  if ((decoded as any).username !== user?.username) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+  // if ((decoded as any).username !== user?.username) {
+  //   return res.status(401).json({ error: "Unauthorized" });
+  // }
 
+  delete (user as any).password;
   res.status(200).json({
-    username: user.username,
-    name: user.name,
-    state: user.state,
+    ...user,
   });
 };
 
