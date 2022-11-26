@@ -27,7 +27,7 @@ const User = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const user = await prisma.user.findUnique({
     where: {
-      username: "k",
+      username: username as string,
     },
     include: {
       UserResponse: {

@@ -31,17 +31,18 @@ export const useAuth = () => {
           },
         });
         if (res.status === 200) {
+          console.log(res.data)
           setUser(res.data);
+          setIsLoading(false);
           setIsAuth(true);
         }
       } catch (err) {
         Cookies.remove("token");
         setUser(null);
         setIsAuth(false);
+        setIsLoading(false);
         router.push("/");
         return;
-      } finally {
-        setIsLoading(false);
       }
     };
     checkAuth();

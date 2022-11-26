@@ -23,12 +23,12 @@ const Seed = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   try {
     const { username } = decoded as { username: string };
-    const { ParticipationDetails, ContingentInCharge, ...UserResponse } =
+    const { ParticipationDetails=[], ContingentInCharge=[], ...UserResponse } =
       req.body;
 
     const user = await prisma.user.findUnique({
       where: {
-        username: "k",
+        username: username as string,
       },
       include: {
         UserResponse: true,

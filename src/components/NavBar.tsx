@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { Drawer, Menu } from "@mantine/core";
+import Cookies from "js-cookie";
 
 interface Props {
   handleContactClick?: () => void;
@@ -98,18 +99,29 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
         >
           Contact
         </span>
-        {/* <span
+        {isAuth && (
+          <span
+            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            onClick={() => {
+              router.push("/dashboard");
+            }}
+          >
+            Dashboard
+          </span>
+        )}
+        <span
           className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
           onClick={() => {
             if (isAuth) {
-              router.push("/dashboard");
+              Cookies.remove("token");
+              router.refresh();
             } else {
               router.push("/login");
             }
           }}
         >
-          {isAuth ? "Dashboard" : "Login"}
-        </span> */}
+          {isAuth ? "Logout" : "Login"}
+        </span>
       </div>
       <GiHamburgerMenu
         size={30}
@@ -187,18 +199,29 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           >
             Contact
           </span>
-          {/* <span
+          {isAuth && (
+            <span
+              className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+              onClick={() => {
+                router.push("/dashboard");
+              }}
+            >
+              Dashboard
+            </span>
+          )}
+          <span
             className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
             onClick={() => {
               if (isAuth) {
-                router.push("/dashboard");
+                Cookies.remove("token");
+                router.refresh();
               } else {
                 router.push("/login");
               }
             }}
           >
-            {isAuth ? "Dashboard" : "Login"}
-          </span> */}
+            {isAuth ? "Logout" : "Login"}
+          </span>
         </div>
       </Drawer>
     </div>

@@ -22,46 +22,50 @@ const Login = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ error: "Please Enter all required fields." });
   }
 
-  const user = await prisma.user.findUnique({
-    where: {
-      username,
-    },
-  });
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
 
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
-  }
-
-  const isPasswordCorrect = await bycrypt.compare(
-    password,
-    (user as User).password
-  );
-
-  if (!isPasswordCorrect) {
-    res.status(400).json({ error: "Invalid credentials" });
-  }
-
-  const token = jwt.sign(
-    {
-      username: (user as User).username,
-    },
-    process.env.JWT_SECRET as string,
-    {
-      expiresIn: "30d",
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
-  );
 
-  res.setHeader(
-    "Set-Cookie",
-    cookie.serialize("token", token, {
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-    })
-  );
+    const isPasswordCorrect = await bycrypt.compare(
+      password,
+      (user as User).password
+    );
 
-  res.status(200).json({ message: "Login successful" });
+    if (!isPasswordCorrect) {
+      res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    const token = jwt.sign(
+      {
+        username: (user as User).username,
+      },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "30d",
+      }
+    );
+
+    res.setHeader(
+      "Set-Cookie",
+      cookie.serialize("token", token, {
+        secure: process.env.NODE_ENV !== "development",
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      })
+    );
+
+    res.status(200).json({ message: "Login successful" });
+  } catch (err) {
+    res.status(500).json({ error: "Something went wrong", err });
+  }
 };
 
 export default Login;

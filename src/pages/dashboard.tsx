@@ -3,7 +3,6 @@ import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import { MdAddCircleOutline } from "react-icons/md";
 import { MdRemoveCircle } from "react-icons/md";
-import { Input } from "@mantine/core";
 import { FileInput } from "@mantine/core";
 import { BiCloudUpload } from "react-icons/bi";
 import { useAuth } from "../hooks/useAuth";
@@ -14,29 +13,51 @@ import { useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { v4 as uuid } from "uuid";
 
-const UploadPhoto = async (url: string, file: any) => {
-  await axios.put(url, file, {
-    headers: {
-      "Content-tvpe": file.type,
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+const UploadPhoto = async (file: File | null) => {
+  try {
+    if (file) {
+      const photoUrl = await axios.post("/api/s3-upload-url", {
+        // @ts-ignore
+        name: file.name,
+        // @ts-ignore
+        type: file.type,
+      });
+      await axios.put(photoUrl.data.url, file, {
+        headers: {
+          "Content-tvpe": file.type,
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      return photoUrl.data.url;
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const Dashboard = () => {
   const { isAuth, user, isLoading } = useAuth();
-  const router = useRouter();
+  console.log(user)
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (!isAuth && !isLoading) {
+  //     console.log("no login");
+  //     console.log({ isAuth, isLoading });
+  //   } else {
+  //     console.log("login");
+  //     console.log({ isAuth, isLoading });
+  //   }
+  // }, [isAuth, router, isLoading]);
 
-  useEffect(() => {
-    if (!isAuth && !isLoading) {
-      router.push("/login");
-    }
-  }, [isAuth, router, isLoading]);
-
-  const [contingent1, setContingent1] = useState({});
-  const [contingent2, setContingent2] = useState({});
-  const [participationDetails, setParticipationDetails] = useState([]);
+  const [contingent1, setContingent1] = useState<any>({
+    id: uuid(),
+  });
+  const [contingent2, setContingent2] = useState<any>({
+    id: uuid(),
+  });
+  const [participationDetails, setParticipationDetails] = useState<any>();
   const [data, setData] = useState({});
 
   const [totalContingent, setTotalContingent] = useState(1);
@@ -65,10 +86,6 @@ const Dashboard = () => {
       });
     }
   };
-
-  console.log(data);
-  console.log(contingent1);
-
   return (
     <div className="min-h-screen overflow-hidden bg-custom-cream text-custom-purple">
       <NavBar />
@@ -177,9 +194,9 @@ const Dashboard = () => {
                     }}
                   >
                     <option value="DEFAULT" disabled hidden></option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHERS">Others</option>
                   </select>
                 </div>
 
@@ -218,10 +235,11 @@ const Dashboard = () => {
                       },
                     }}
                     icon={<BiCloudUpload size={24} color="#2E1739" />}
-                    onChange={(e) => {
+                    onChange={async (e) => {
+                      const url = await UploadPhoto(e);
                       setContingent1({
                         ...contingent1,
-                        photoUrl: e,
+                        photoUrl: url,
                       });
                     }}
                   />
@@ -320,9 +338,9 @@ const Dashboard = () => {
                     }}
                   >
                     <option value="DEFAULT" disabled hidden></option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Others</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHERS">Others</option>
                   </select>
                 </div>
 
@@ -361,10 +379,11 @@ const Dashboard = () => {
                       },
                     }}
                     icon={<BiCloudUpload size={24} color="#2E1739" />}
-                    onChange={(e) => {
+                    onChange={async (e) => {
+                      const url = await UploadPhoto(e);
                       setContingent2({
                         ...contingent2,
-                        photoUrl: e,
+                        photoUrl: url,
                       });
                     }}
                   />
@@ -387,7 +406,8 @@ const Dashboard = () => {
                   onChange={(e) => {
                     setData({
                       ...data,
-                      contingentStrength: e.target.value,
+                      contingentStrength: parseInt(e.target.value),
+                      totalAmount: parseInt(e.target.value) * 2000,
                     });
                   }}
                 >
@@ -413,7 +433,7 @@ const Dashboard = () => {
                     setData({
                       ...data,
                       // @ts-ignore
-                      totalContingentMale: e.target.value,
+                      totalContingentMale: parseInt(e.target.value),
                     });
                   }}
                 >
@@ -441,7 +461,7 @@ const Dashboard = () => {
                     setData({
                       ...data,
                       // @ts-ignore
-                      totalContingentFemale: e.target.value,
+                      totalContingentFemale: parseInt(e.target.value),
                     });
                   }}
                 >
@@ -523,9 +543,9 @@ const Dashboard = () => {
                         });
                       }}
                     >
-                      <Radio value="bus" label="Bus" />
-                      <Radio value="train" label="Train" />
-                      <Radio value="flight" label="Flight" />
+                      <Radio value="BUS" label="Bus" />
+                      <Radio value="TRAIN" label="Train" />
+                      <Radio value="FLIGHT" label="Flight" />
                     </Radio.Group>
                   </div>
                 </div>
@@ -587,9 +607,9 @@ const Dashboard = () => {
                         });
                       }}
                     >
-                      <Radio value="bus" label="Bus" />
-                      <Radio value="train" label="Train" />
-                      <Radio value="flight" label="Flight" />
+                      <Radio value="BUS" label="Bus" />
+                      <Radio value="TRAIN" label="Train" />
+                      <Radio value="FLIGHT" label="Flight" />
                     </Radio.Group>
                   </div>
                 </div>
@@ -633,10 +653,11 @@ const Dashboard = () => {
                     },
                   }}
                   icon={<BiCloudUpload size={24} color="#2E1739" />}
-                  onChange={(e) => {
+                  onChange={async (e) => {
+                    const url = await UploadPhoto(e);
                     setData({
                       ...data,
-                      eligibilityCertificatesUrl: e,
+                      eligibilityCertificatesUrl: url,
                     });
                   }}
                 />
@@ -666,10 +687,11 @@ const Dashboard = () => {
                     },
                   }}
                   icon={<BiCloudUpload size={24} color="#2E1739" />}
-                  onChange={(e) => {
+                  onChange={async (e) => {
+                    const url = await UploadPhoto(e);
                     setData({
                       ...data,
-                      curriculumVitaeUrl: e,
+                      curriculumVitaeUrl: url,
                     });
                   }}
                 />
@@ -751,10 +773,11 @@ const Dashboard = () => {
                           fontWeight: "bold",
                         },
                       }}
-                      onChange={(e) => {
+                      onChange={async (e) => {
+                        const url = await UploadPhoto(e);
                         setData({
                           ...data,
-                          transactionPhotoUrl: e,
+                          transactionPhotoUrl: url,
                         });
                       }}
                     />
@@ -764,141 +787,29 @@ const Dashboard = () => {
             </div>
             <div className="mt-12 flex w-full justify-end gap-6">
               <Button
-                className="bg-custom-red hover:bg-custom-red"
-                onClick={() => {
-                  Cookies.remove("token");
-                  router.push("/");
-                }}
-              >
-                Logout
-              </Button>
-              <Button
                 onClick={async () => {
-                  // console.log({
-                  //   ...data,
-                  //   participationDetails,
-                  //   contingent: [contingent1, contingent2],
-                  // });
-                  // return
+                  const token = Cookies.get("token");
+                  let allData;
+                  if (totalContingent === 2) {
+                    allData = {
+                      ...data,
+                      ContingentInCharge: [contingent1, contingent2],
+                      // ParticipationDetails: participationDetails
+                    };
+                  } else {
+                    allData = {
+                      ...data,
+                      ContingentInCharge: [contingent1],
+                      // ParticipationDetails: participationDetails
+                    };
+                  }
 
                   try {
-                    const photoUrl1 = await axios.post("/api/s3-upload-url", {
-                      // @ts-ignore
-                      name: contingent1.photoUrl.name,
-                      // @ts-ignore
-                      type: contingent1.photoUrl.type,
+                    const res = await axios.post("/api/saveResponse", allData, {
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
                     });
-                    let photoUrl2;
-                    if (totalContingent === 2) {
-                      photoUrl2 = await axios.post("/api/s3-upload-url", {
-                        // @ts-ignore
-                        name: contingent2.photoUrl.name,
-                        // @ts-ignore
-                        type: contingent2.photoUrl.type,
-                      });
-                    }
-                    const eligibilityCertificatesUrl = await axios.post(
-                      "/api/s3-upload-url",
-                      {
-                        // @ts-ignore
-                        name: data.eligibilityCertificatesUrl.name,
-                        // @ts-ignore
-                        type: data.eligibilityCertificatesUrl.type,
-                      }
-                    );
-                    const curriculumVitaeUrl = await axios.post(
-                      "/api/s3-upload-url",
-                      {
-                        // @ts-ignore
-                        name: data.curriculumVitaeUrl.name,
-                        // @ts-ignore
-                        type: data.curriculumVitaeUrl.type,
-                      }
-                    );
-                    const transactionPhotoUrl = await axios.post(
-                      "/api/s3-upload-url",
-                      {
-                        // @ts-ignore
-                        name: data.transactionPhotoUrl.name,
-                        // @ts-ignore
-                        type: data.transactionPhotoUrl.type,
-                      }
-                    );
-
-                    // @ts-ignore
-                    await UploadPhoto(photoUrl1.data.url, contingent1.photoUrl);
-                    if (contingent2 === 2) {
-                      await UploadPhoto(
-                        photoUrl2?.data.url,
-                        // @ts-ignore
-                        contingent2.photoUrl
-                      );
-                    }
-                    await UploadPhoto(
-                      eligibilityCertificatesUrl.data.url,
-                      // @ts-ignore
-                      data.eligibilityCertificatesUrl
-                    );
-                    await UploadPhoto(
-                      curriculumVitaeUrl.data.url,
-                      // @ts-ignore
-                      data.curriculumVitaeUrl
-                    );
-                    await UploadPhoto(
-                      transactionPhotoUrl.data.url,
-                      // @ts-ignore
-                      data.transactionPhotoUrl
-                    );
-                    setData({
-                      ...data,
-                      eligibilityCertificatesUrl:
-                        eligibilityCertificatesUrl.data.url,
-                      curriculumVitaeUrl: curriculumVitaeUrl.data.url,
-                      transactionPhotoUrl: transactionPhotoUrl.data.url,
-                    });
-
-                    setContingent1({
-                      ...contingent1,
-                      photoUrl: photoUrl1.data.url,
-                    });
-                    setContingent2({
-                      ...contingent2,
-                      // @ts-ignore
-                      photoUrl: photoUrl2.data.url,
-                    });
-                    const participationDetailsCopy = participationDetails;
-
-                    participationDetailsCopy.map(async (data) => {
-                      const photoUrl = await axios.post("/api/s3-upload-url", {
-                        // @ts-ignore
-                        name: data.photoUrl.name,
-                        // @ts-ignore
-                        type: data.photoUrl.type,
-                      });
-                      // @ts-ignore
-                      await UploadPhoto(photoUrl.data.url, data.photoUrl);
-                      // @ts-ignore
-                      data.photoUrl = photoUrl.data.url;
-                    });
-
-                    setParticipationDetails(participationDetailsCopy);
-
-                    let allData;
-                    if (totalContingent === 1) {
-                      allData = {
-                        ...data,
-                        participationDetails,
-                        contingent: [contingent1],
-                      };
-                    } else {
-                      allData = {
-                        ...data,
-                        participationDetails,
-                        contingent: [contingent1, contingent2],
-                      };
-                    }
-
-                    const res = await axios.post("/api/saveResponse", allData);
                     console.log(res);
                     showNotification({
                       title: "Data Added Successfully",
@@ -906,19 +817,147 @@ const Dashboard = () => {
                       color: "green",
                       autoClose: 3 * 1000,
                     });
-                    router.push("/");
                   } catch (err) {
-                    console.log(err);
                     showNotification({
-                      title: "Error",
-                      message: "Please fill all the data and try again.",
+                      title: "ERROR",
+                      message: "Unable to save data",
                       color: "red",
                       autoClose: 3 * 1000,
                     });
                   }
+
+                  //   try {
+                  //     const photoUrl1 = await axios.post("/api/s3-upload-url", {
+                  //       // @ts-ignore
+                  //       name: contingent1.photoUrl.name,
+                  //       // @ts-ignore
+                  //       type: contingent1.photoUrl.type,
+                  //     });
+                  //     let photoUrl2;
+                  //     if (totalContingent === 2) {
+                  //       photoUrl2 = await axios.post("/api/s3-upload-url", {
+                  //         // @ts-ignore
+                  //         name: contingent2.photoUrl.name,
+                  //         // @ts-ignore
+                  //         type: contingent2.photoUrl.type,
+                  //       });
+                  //     }
+                  //     const eligibilityCertificatesUrl = await axios.post(
+                  //       "/api/s3-upload-url",
+                  //       {
+                  //         // @ts-ignore
+                  //         name: data.eligibilityCertificatesUrl.name,
+                  //         // @ts-ignore
+                  //         type: data.eligibilityCertificatesUrl.type,
+                  //       }
+                  //     );
+                  //     const curriculumVitaeUrl = await axios.post(
+                  //       "/api/s3-upload-url",
+                  //       {
+                  //         // @ts-ignore
+                  //         name: data.curriculumVitaeUrl.name,
+                  //         // @ts-ignore
+                  //         type: data.curriculumVitaeUrl.type,
+                  //       }
+                  //     );
+                  //     const transactionPhotoUrl = await axios.post(
+                  //       "/api/s3-upload-url",
+                  //       {
+                  //         // @ts-ignore
+                  //         name: data.transactionPhotoUrl.name,
+                  //         // @ts-ignore
+                  //         type: data.transactionPhotoUrl.type,
+                  //       }
+                  //     );
+                  //     // @ts-ignore
+                  //     await UploadPhoto(photoUrl1.data.url, contingent1.photoUrl);
+                  //     if (contingent2 === 2) {
+                  //       await UploadPhoto(
+                  //         photoUrl2?.data.url,
+                  //         // @ts-ignore
+                  //         contingent2.photoUrl
+                  //       );
+                  //     }
+                  //     await UploadPhoto(
+                  //       eligibilityCertificatesUrl.data.url,
+                  //       // @ts-ignore
+                  //       data.eligibilityCertificatesUrl
+                  //     );
+                  //     await UploadPhoto(
+                  //       curriculumVitaeUrl.data.url,
+                  //       // @ts-ignore
+                  //       data.curriculumVitaeUrl
+                  //     );
+                  //     await UploadPhoto(
+                  //       transactionPhotoUrl.data.url,
+                  //       // @ts-ignore
+                  //       data.transactionPhotoUrl
+                  //     );
+                  //     setData({
+                  //       ...data,
+                  //       eligibilityCertificatesUrl:
+                  //         eligibilityCertificatesUrl.data.url,
+                  //       curriculumVitaeUrl: curriculumVitaeUrl.data.url,
+                  //       transactionPhotoUrl: transactionPhotoUrl.data.url,
+                  //     });
+                  //     setContingent1({
+                  //       ...contingent1,
+                  //       photoUrl: photoUrl1.data.url,
+                  //     });
+                  //     setContingent2({
+                  //       ...contingent2,
+                  //       // @ts-ignore
+                  //       photoUrl: photoUrl2.data.url,
+                  //     });UploadPhoto
+                  //     const participationDetailsCopy = participationDetails;
+                  //     participationDetailsCopy.map(async (data) => {
+                  //       const photoUrl = await axios.post("/api/s3-upload-url", {
+                  //         // @ts-ignore
+                  //         name: data.photoUrl.name,
+                  //         // @ts-ignore
+                  //         type: data.photoUrl.type,
+                  //       });
+                  //       // @ts-ignore
+                  //       await UploadPhoto(photoUrl.data.url, data.photoUrl);
+                  //       // @ts-ignore
+                  //       data.photoUrl = photoUrl.data.url;
+                  //     });
+                  //     setParticipationDetails(participationDetailsCopy);
+                  //     let allData;
+                  //     if (totalContingent === 1) {
+                  //       allData = {
+                  //         ...data,
+                  //         participationDetails,
+                  //         contingent: [contingent1],
+                  //       };
+                  //     } else {
+                  //       allData = {
+                  //         ...data,
+                  //         participationDetails,
+                  //         contingent: [contingent1, contingent2],
+                  //       };
+                  //     }
+                  //     const res = await axios.post("/api/saveResponse", allData);
+                  //     console.log(res);
+                  //     showNotification({
+                  //       title: "Data Added Successfully",
+                  //       message: "Your data has been added successfully",
+                  //       color: "green",
+                  //       autoClose: 3 * 1000,
+                  //     });
+                  //     router.push("/");
+                  //   } catch (err) {
+                  //     console.log(err);
+                  //     showNotification({
+                  //       title: "Error",
+                  //       message: "Please fill all the data and try again.",
+                  //       color: "red",
+                  //       autoClose: 3 * 1000,
+                  //     });
+                  //   }
                 }}
               >
-                Submit Form
+                Save Form
               </Button>
             </div>
           </div>
