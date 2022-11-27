@@ -6,11 +6,11 @@ import { MdRemoveCircle } from "react-icons/md";
 import { FileInput } from "@mantine/core";
 import { BiCloudUpload } from "react-icons/bi";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { ParticipationDetails } from "../components/ParticipationDetails";
+// import { useEffect } from "react";
+// import { useRouter } from "next/navigation";
+// import { ParticipationDetails } from "../components/ParticipationDetails";
 import Participants from "../components/Participants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -40,7 +40,6 @@ const UploadPhoto = async (file: File | null) => {
 
 const Dashboard = () => {
   const { isAuth, user, isLoading } = useAuth();
-  console.log(user);
   // const router = useRouter();
   // useEffect(() => {
   //   if (!isAuth && !isLoading) {
@@ -52,16 +51,54 @@ const Dashboard = () => {
   //   }
   // }, [isAuth, router, isLoading]);
 
-  const [contingent1, setContingent1] = useState<any>({
-    id: uuid(),
-  });
-  const [contingent2, setContingent2] = useState<any>({
-    id: uuid(),
-  });
+  // const [userData, setUserData] = useState<any>(null);
+  const [reload, setReload] = useState(false);
+  const reloadData = () => setReload(!reload);
+
+  const [contingent1, setContingent1] = useState<any>({});
+  const [contingent2, setContingent2] = useState<any>({});
   const [participationDetails, setParticipationDetails] = useState<any>();
   const [data, setData] = useState({});
+  console.log({ data });
 
   const [totalContingent, setTotalContingent] = useState(1);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const token = Cookies.get("token");
+        const res = await axios.get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setData(res.data.UserResponse);
+        setParticipationDetails(
+          res.data.UserResponse?.ParticipationDetails ?? []
+        );
+        setContingent1(
+          res.data.UserResponse?.ContingentInCharge[0] ?? {
+            id: uuid(),
+          }
+        );
+        setContingent2(
+          res.data.UserResponse?.ContingentInCharge[1] ?? {
+            id: uuid(),
+          }
+        );
+      } catch (err) {
+        showNotification({
+          title: "Error",
+          message:
+            "Unable to fetch Data, Please check your network connection and try again",
+          color: "red",
+          autoClose: 3 * 1000,
+        });
+      }
+    };
+    getUserData();
+  }, [reload]);
+
   const addContingent = () => {
     if (totalContingent === 1) {
       setTotalContingent(totalContingent + 1);
@@ -128,6 +165,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="name"
+                    value={contingent1?.name}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -148,6 +186,7 @@ const Dashboard = () => {
                   <input
                     id="email"
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                    value={contingent1?.email}
                     onChange={(e) => {
                       setContingent1({
                         ...contingent1,
@@ -166,6 +205,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="mobile-num"
+                    value={contingent1?.mobile}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -186,6 +226,7 @@ const Dashboard = () => {
                   <select
                     id="gender"
                     defaultValue="DEFAULT"
+                    value={contingent1?.gender}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -210,6 +251,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="address"
+                    value={contingent1?.address}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -272,6 +314,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="name"
+                    value={contingent2?.name}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -291,6 +334,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="email"
+                    value={contingent2?.email}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -310,6 +354,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="mobile-num"
+                    value={contingent2?.mobile}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -330,6 +375,7 @@ const Dashboard = () => {
                   <select
                     id="gender"
                     defaultValue="DEFAULT"
+                    value={contingent2?.gender}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -354,6 +400,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="address"
+                    value={contingent2?.address}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -403,6 +450,7 @@ const Dashboard = () => {
                 <select
                   id="contingent-strength"
                   defaultValue="DEFAULT"
+                  value={data?.contingentStrength}
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
                   onChange={(e) => {
                     setData({
@@ -429,6 +477,7 @@ const Dashboard = () => {
                 <select
                   id="contingent-strength-male"
                   defaultValue="DEFAULT"
+                  value={data?.totalContingentMale}
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
                   onChange={(e) => {
                     setData({
@@ -458,6 +507,7 @@ const Dashboard = () => {
                   id="contingent-strength-female"
                   defaultValue="DEFAULT"
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
+                  value={data?.totalContingentFemale}
                   onChange={(e) => {
                     setData({
                       ...data,
@@ -503,6 +553,7 @@ const Dashboard = () => {
                     <input
                       id="arrival-date"
                       type="date"
+                      value={data?.arrivalDate}
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       onChange={(e) => {
                         setData({
@@ -523,6 +574,7 @@ const Dashboard = () => {
                       id="arrival-time"
                       type="time"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      value={data?.arrivalTime}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -537,6 +589,7 @@ const Dashboard = () => {
                     </label>
                     <Radio.Group
                       name="mode-of-arrival"
+                      value={data?.arrivalMode}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -565,6 +618,7 @@ const Dashboard = () => {
                       id="departure-date"
                       type="date"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      value={data?.departureDate}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -585,6 +639,7 @@ const Dashboard = () => {
                       id="departure-time"
                       type="time"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      value={data?.departureTime}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -600,6 +655,7 @@ const Dashboard = () => {
                     </label>
                     <Radio.Group
                       name="mode-of-departure"
+                      value={data?.departureMode}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -708,9 +764,9 @@ const Dashboard = () => {
                   <span className="my-1 ml-2 rounded bg-custom-cream p-1 md:ml-12 md:px-4 md:py-2">
                     {
                       // @ts-ignore
-                      data.totalAmount
+                      data?.totalAmount
                     }
-                  </span>{" "}
+                  </span>
                   only
                 </p>
               </div>
@@ -750,6 +806,7 @@ const Dashboard = () => {
                     <input
                       id="Transaction"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      value={data?.transactionNumber}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -791,20 +848,19 @@ const Dashboard = () => {
               <Button
                 onClick={async () => {
                   const token = Cookies.get("token");
-                  let allData;
-                  if (totalContingent === 2) {
-                    allData = {
-                      ...data,
-                      ContingentInCharge: [contingent1, contingent2],
-                      // ParticipationDetails: participationDetails
-                    };
-                  } else {
-                    allData = {
-                      ...data,
-                      ContingentInCharge: [contingent1],
-                      // ParticipationDetails: participationDetails
-                    };
-                  }
+                  const allData = {
+                    ...data,
+                    ContingentInCharge: [contingent1, contingent2],
+                    // ParticipationDetails: participationDetails
+                  };
+                  // if (totalContingent === 2) {
+                  // } else {
+                  //   allData = {
+                  //     ...data,
+                  //     ContingentInCharge: [contingent1],
+                  //     // ParticipationDetails: participationDetails
+                  //   };
+                  // }
 
                   try {
                     const res = await axios.post("/api/saveResponse", allData, {
@@ -812,13 +868,14 @@ const Dashboard = () => {
                         Authorization: `Bearer ${token}`,
                       },
                     });
-                    console.log(res);
+                    // console.log(res);
                     showNotification({
                       title: "Data Added Successfully",
                       message: "Your data has been added successfully",
                       color: "green",
                       autoClose: 3 * 1000,
                     });
+                    reloadData();
                   } catch (err) {
                     showNotification({
                       title: "ERROR",
@@ -826,6 +883,7 @@ const Dashboard = () => {
                       color: "red",
                       autoClose: 3 * 1000,
                     });
+                    reloadData();
                   }
 
                   //   try {
