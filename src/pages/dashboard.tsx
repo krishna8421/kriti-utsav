@@ -9,6 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ParticipationDetails } from "../components/ParticipationDetails";
+import Participants from "../components/Participants";
 import { useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
@@ -623,6 +624,7 @@ const Dashboard = () => {
                 participationDetails={participationDetails}
                 setParticipationDetails={setParticipationDetails}
               /> */}
+              <Participants />
             </div>
 
             <div className="mt-12 w-full md:w-9/12">
@@ -706,7 +708,7 @@ const Dashboard = () => {
                   <span className="my-1 ml-2 rounded bg-custom-cream p-1 md:ml-12 md:px-4 md:py-2">
                     {
                       // @ts-ignore
-                      data.contingentStrength * 2000
+                      data.totalAmount
                     }
                   </span>{" "}
                   only
