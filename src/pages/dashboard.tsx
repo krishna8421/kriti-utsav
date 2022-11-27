@@ -24,13 +24,13 @@ const UploadPhoto = async (file: File | null) => {
         // @ts-ignore
         type: file.type,
       });
-      await axios.put(photoUrl.data.url, file, {
+      const { data } = await axios.put(photoUrl.data.url, file, {
         headers: {
           "Content-tvpe": file.type,
           "Access-Control-Allow-Origin": "*",
         },
       });
-      return photoUrl.data.url;
+      return data.url;
     }
   } catch (err) {
     console.error(err);
@@ -39,7 +39,7 @@ const UploadPhoto = async (file: File | null) => {
 
 const Dashboard = () => {
   const { isAuth, user, isLoading } = useAuth();
-  console.log(user)
+  console.log(user);
   // const router = useRouter();
   // useEffect(() => {
   //   if (!isAuth && !isLoading) {
