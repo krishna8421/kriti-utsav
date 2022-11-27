@@ -2,15 +2,19 @@ import classNames from "classnames";
 import { FileInput } from "@mantine/core";
 import { BiCloudUpload } from "react-icons/bi";
 import { event } from "../../constants/data";
+import { UploadPhoto } from "../../utils/UploadPhoto";
+import { useAuth } from "../../hooks/useAuth";
 
 const Form = (props) => {
   const { fields, tabSection, index, setFields, valueFields } = props;
-
+  const { user } = useAuth();
   const handleChangeInput = (index, event) => {
     const values = [...valueFields];
+    console.log(values);
     values[index][event.target.name] = event.target.value;
     setFields(values);
   };
+
   return (
     <div>
       <div className="items-center gap-2 p-2 md:flex">
@@ -67,8 +71,8 @@ const Form = (props) => {
         </div>
         <div className="w-full">
           <input
-            name="fullname"
-            value={fields.fullname}
+            name="name"
+            value={fields.name}
             placeholder="Full Name"
             className={classNames(
               "w-full border-spacing-2 rounded-lg border-[2.5px] bg-[#FFDDB8] p-2",
@@ -109,8 +113,8 @@ const Form = (props) => {
         </div>
         <div className="w-full">
           <input
-            name="dob"
-            value={fields.dob}
+            name="DOB"
+            value={fields.DOB}
             type="date"
             placeholder="Date of birth"
             className={classNames(
@@ -128,8 +132,8 @@ const Form = (props) => {
         </div>
         <div className="w-full">
           <select
-            name="prticipation"
-            value={fields.prticipation}
+            name="modeOfParticipation"
+            value={fields.modeOfParticipation}
             className={classNames(
               "w-full border-spacing-2 rounded-lg border-[2.5px] bg-[#FFDDB8] p-2",
               {
@@ -181,21 +185,13 @@ const Form = (props) => {
               },
             }}
             icon={<BiCloudUpload size={24} color="white" />}
-            onChange={(event) => {
+            onChange={async (f) => {
+              const url = await UploadPhoto(f, user?.id);
               const values = [...valueFields];
-              values[index]["photourl"] = event.name;
+              values[index]["photoUrl"] = url;
               setFields(values);
-              // handleChangeInput(index, event);
             }}
-            // onChange={async (e) => {
-            //   const url = await UploadPhoto(e);
-            //   setContingent2({
-            //     ...contingent2,
-            //     photoUrl: url,
-            //   });
-            // }}
           />
-          
         </div>
       </div>
     </div>

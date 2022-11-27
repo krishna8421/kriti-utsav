@@ -31,7 +31,6 @@ export const useAuth = () => {
           },
         });
         if (res.status === 200) {
-          console.log(res.data)
           setUser(res.data);
           setIsLoading(false);
           setIsAuth(true);

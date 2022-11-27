@@ -1,137 +1,113 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { GoDiffAdded } from "react-icons/go";
 import Form from "./partcipants/Form";
-import { showNotification } from "@mantine/notifications";
+import { v4 as uuid } from "uuid";
+import { Button } from "@mantine/core";
+import { participationDetailsAtom } from "../store/participationDetails";
+import { useAtom } from "jotai";
+
+const defaultFineArts = {
+  id: uuid(),
+  eventType: "fineArts",
+  event: "DEFAULT",
+  name: "",
+  gender: "DEFAULT",
+  DOB: "",
+  modeOfParticipation: "DEFAULT",
+  photoUrl: "",
+};
+
+const defaultLiterary = {
+  id: uuid(),
+  eventType: "literary",
+  event: "DEFAULT",
+  name: "",
+  gender: "DEFAULT",
+  DOB: "",
+  modeOfParticipation: "DEFAULT",
+  photoUrl: "",
+};
+
+const defaultMusic = {
+  id: uuid(),
+  eventType: "music",
+  event: "DEFAULT",
+  name: "",
+  gender: "DEFAULT",
+  DOB: "",
+  modeOfParticipation: "DEFAULT",
+  photoUrl: "",
+};
+
+const defaultDance = {
+  id: uuid(),
+  eventType: "dance",
+  event: "DEFAULT",
+  name: "",
+  gender: "DEFAULT",
+  DOB: "",
+  modeOfParticipation: "DEFAULT",
+  photoUrl: "",
+};
+
+const defaultTheatre = {
+  id: uuid(),
+  eventType: "theatre",
+  event: "DEFAULT",
+  name: "",
+  gender: "DEFAULT",
+  DOB: "",
+  modeOfParticipation: "DEFAULT",
+  photoUrl: "",
+};
 
 const Participants = () => {
   const [tabSection, setTabSection] = useState(1);
-  const [fineArts, setFineArts] = useState([
-    {
-      event: "DEFAULT",
-      fullname: "",
-      gender: "DEFAULT",
-      dob: "",
-      prticipation: "DEFAULT",
-      photourl: "",
-    },
-  ]);
-  const [literary, setLiterary] = useState([
-    {
-      event: "DEFAULT",
-      fullname: "",
-      gender: "DEFAULT",
-      dob: "",
-      prticipation: "DEFAULT",
-      photourl: "",
-    },
-  ]);
-  const [music, setMusic] = useState([
-    {
-      event: "DEFAULT",
-      fullname: "",
-      gender: "DEFAULT",
-      dob: "",
-      prticipation: "DEFAULT",
-      photourl: "",
-    },
-  ]);
-  const [dance, setDance] = useState([
-    {
-      event: "DEFAULT",
-      fullname: "",
-      gender: "DEFAULT",
-      dob: "",
-      prticipation: "DEFAULT",
-      photourl: "",
-    },
-  ]);
-  const [theatre, setTheatre] = useState([
-    {
-      event: "DEFAULT",
-      fullname: "",
-      gender: "DEFAULT",
-      dob: "",
-      prticipation: "DEFAULT",
-      photourl: "",
-    },
-  ]);
-  console.log(fineArts);
+  const [participationDetails, setParticipationDetails] = useAtom(
+    participationDetailsAtom
+  );
+
+  // const fineArts
+
+  const [fineArts, setFineArts] = useState([defaultFineArts]);
+  const [literary, setLiterary] = useState([defaultLiterary]);
+  const [music, setMusic] = useState([defaultMusic]);
+  const [dance, setDance] = useState([defaultDance]);
+  const [theatre, setTheatre] = useState([defaultDance]);
+
+  useEffect(() => {
+    let f = [],
+      l = [],
+      m = [],
+      d = [],
+      t = [];
+    participationDetails?.filter((participation) => {
+      if (participation.eventType === "fineArts") f.push(participation);
+      if (participation.eventType === "literary") l.push(participation);
+      if (participation.eventType === "music") m.push(participation);
+      if (participation.eventType === "dance") d.push(participation);
+      if (participation.eventType === "theatre") t.push(participation);
+    });
+    setFineArts(f.length === 0 ? [defaultFineArts] : [...f]);
+    setLiterary(l.length === 0 ? [defaultLiterary] : [...l]);
+    setMusic(m.length === 0 ? [defaultMusic] : [...m]);
+    setDance(d.length === 0 ? [defaultDance] : [...d]);
+    setTheatre(t.length === 0 ? [defaultTheatre] : [...t]);
+  }, [participationDetails]);
+
   const handleAddFields = () => {
-    // const { event, fullname, gender, dob, prticipation, photourl } = fineArts;
-    // console.log(event, fullname, gender, dob, prticipation, photourl);
-
-    // if (event || !fullname || !gender || !dob || !prticipation || !photourl) {
-    //   showNotification({
-    //     title: "Error",
-    //     message: "Please fill all the fields to add participants",
-    //     color: "red",
-    //     autoClose: 3 * 1000,
-    //   });
-    //   return;
-    // }
-
     tabSection === 1 &&
-      setFineArts([
-        ...fineArts,
-        {
-          event: "DEFAULT",
-          fullname: "",
-          gender: "DEFAULT",
-          dob: "",
-          prticipation: "DEFAULT",
-          photourl: "",
-        },
-      ]);
+      setFineArts([...fineArts, { ...defaultFineArts, id: uuid() }]);
+
     tabSection === 2 &&
-      setLiterary([
-        ...literary,
-        {
-          event: "DEFAULT",
-          fullname: "",
-          gender: "DEFAULT",
-          dob: "",
-          prticipation: "DEFAULT",
-          photourl: "",
-        },
-      ]);
-    tabSection === 3 &&
-      setMusic([
-        ...music,
-        {
-          event: "DEFAULT",
-          fullname: "",
-          gender: "DEFAULT",
-          dob: "",
-          prticipation: "DEFAULT",
-          photourl: "",
-        },
-      ]);
-    tabSection === 4 &&
-      setDance([
-        ...dance,
-        {
-          event: "DEFAULT",
-          fullname: "",
-          gender: "DEFAULT",
-          dob: "",
-          prticipation: "DEFAULT",
-          photourl: "",
-        },
-      ]);
+      setLiterary([...literary, { ...defaultLiterary, id: uuid() }]);
+    tabSection === 3 && setMusic([...music, { ...defaultMusic, id: uuid() }]);
+    tabSection === 4 && setDance([...dance, { ...defaultDance, id: uuid() }]);
     tabSection === 5 &&
-      setTheatre([
-        ...theatre,
-        {
-          event: "DEFAULT",
-          fullname: "",
-          gender: "DEFAULT",
-          dob: "",
-          prticipation: "DEFAULT",
-          photourl: "",
-        },
-      ]);
+      setTheatre([...theatre, { ...defaultTheatre, id: uuid() }]);
   };
+
   return (
     <div className="mt-4">
       {/* creating tabs */}
@@ -249,9 +225,9 @@ const Participants = () => {
           "bg-[#2E1739]": tabSection === 5,
         })}
       >
-        <div
+        <Button
           className={classNames(
-            "flex w-2/12 cursor-pointer items-center rounded-lg border-none bg-custom-cream p-3 font-bold text-custom-red hover:bg-custom-cream/95",
+            "bg-custom-cream font-bold text-custom-red hover:bg-custom-cream/95",
             {
               "text-[#841531]": tabSection === 1,
               "text-[#FD8E13]": tabSection === 2,
@@ -260,11 +236,15 @@ const Participants = () => {
               "text-[#2E1739]": tabSection === 5,
             }
           )}
-          onClick={() => handleAddFields()}
+          radius="md"
+          size="md"
+          onClick={() => {
+            handleAddFields();
+          }}
+          leftIcon={<GoDiffAdded size={20} />}
         >
-          <GoDiffAdded size={20} className="mr-2" />
           Add Participants
-        </div>
+        </Button>
       </div>
     </div>
   );

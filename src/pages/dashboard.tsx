@@ -6,37 +6,16 @@ import { MdRemoveCircle } from "react-icons/md";
 import { FileInput } from "@mantine/core";
 import { BiCloudUpload } from "react-icons/bi";
 import { useAuth } from "../hooks/useAuth";
-// import { useEffect } from "react";
-// import { useRouter } from "next/navigation";
-// import { ParticipationDetails } from "../components/ParticipationDetails";
 import Participants from "../components/Participants";
 import { useEffect, useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { v4 as uuid } from "uuid";
-
-const UploadPhoto = async (file: File | null) => {
-  try {
-    if (file) {
-      const photoUrl = await axios.post("/api/s3-upload-url", {
-        // @ts-ignore
-        name: file.name,
-        // @ts-ignore
-        type: file.type,
-      });
-      const { data } = await axios.put(photoUrl.data.url, file, {
-        headers: {
-          "Content-tvpe": file.type,
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-      return data.url;
-    }
-  } catch (err) {
-    console.error(err);
-  }
-};
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { participationDetailsAtom } from "../store/participationDetails";
+import { useAtom } from "jotai";
 
 const Dashboard = () => {
   const { isAuth, user, isLoading } = useAuth();
@@ -51,15 +30,24 @@ const Dashboard = () => {
   //   }
   // }, [isAuth, router, isLoading]);
 
-  // const [userData, setUserData] = useState<any>(null);
   const [reload, setReload] = useState(false);
   const reloadData = () => setReload(!reload);
 
   const [contingent1, setContingent1] = useState<any>({});
   const [contingent2, setContingent2] = useState<any>({});
-  const [participationDetails, setParticipationDetails] = useState<any>();
+  const [participationDetails, setParticipationDetails] = useAtom(
+    participationDetailsAtom
+  );
+
+  // const [participationDetails, setParticipationDetails] = useState<any>([]);
+
+  // const [reloadPD, seReloadPD] = useState(false);
+  // const reloadPDHandler = () => seReloadPD(!reloadPD);
+
   const [data, setData] = useState({});
-  console.log({ data });
+
+  // console.log(participationDetails);
+  // console.log("data", data);
 
   const [totalContingent, setTotalContingent] = useState(1);
 
@@ -124,6 +112,31 @@ const Dashboard = () => {
       });
     }
   };
+  const UploadPhoto = async (file: File | null) => {
+    try {
+      if (file) {
+        // @ts-ignore
+        const storageRef = ref(
+          storage,
+          // @ts-ignore
+          `/${user?.id}/${file.name.trim().replace(/\s/g, "-")}`
+        );
+        await uploadBytes(storageRef, file).then(() => {
+          showNotification({
+            title: "Success",
+            message: "File Uploaded Successfully",
+            color: "green",
+            autoClose: 3 * 1000,
+          });
+        });
+        const url = await getDownloadURL(storageRef);
+        return url;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="min-h-screen overflow-hidden bg-custom-cream text-custom-purple">
       <NavBar />
@@ -450,6 +463,7 @@ const Dashboard = () => {
                 <select
                   id="contingent-strength"
                   defaultValue="DEFAULT"
+                  // @ts-ignore
                   value={data?.contingentStrength}
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
                   onChange={(e) => {
@@ -477,6 +491,7 @@ const Dashboard = () => {
                 <select
                   id="contingent-strength-male"
                   defaultValue="DEFAULT"
+                  // @ts-ignore
                   value={data?.totalContingentMale}
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
                   onChange={(e) => {
@@ -507,6 +522,7 @@ const Dashboard = () => {
                   id="contingent-strength-female"
                   defaultValue="DEFAULT"
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
+                  // @ts-ignore
                   value={data?.totalContingentFemale}
                   onChange={(e) => {
                     setData({
@@ -553,6 +569,7 @@ const Dashboard = () => {
                     <input
                       id="arrival-date"
                       type="date"
+                      // @ts-ignore
                       value={data?.arrivalDate}
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       onChange={(e) => {
@@ -573,7 +590,9 @@ const Dashboard = () => {
                     <input
                       id="arrival-time"
                       type="time"
+                      // @ts-ignore
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      // @ts-ignore
                       value={data?.arrivalTime}
                       onChange={(e) => {
                         setData({
@@ -589,6 +608,7 @@ const Dashboard = () => {
                     </label>
                     <Radio.Group
                       name="mode-of-arrival"
+                      // @ts-ignore
                       value={data?.arrivalMode}
                       onChange={(e) => {
                         setData({
@@ -618,6 +638,7 @@ const Dashboard = () => {
                       id="departure-date"
                       type="date"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      // @ts-ignore
                       value={data?.departureDate}
                       onChange={(e) => {
                         setData({
@@ -639,6 +660,7 @@ const Dashboard = () => {
                       id="departure-time"
                       type="time"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      // @ts-ignore
                       value={data?.departureTime}
                       onChange={(e) => {
                         setData({
@@ -655,6 +677,7 @@ const Dashboard = () => {
                     </label>
                     <Radio.Group
                       name="mode-of-departure"
+                      // @ts-ignore
                       value={data?.departureMode}
                       onChange={(e) => {
                         setData({
@@ -676,11 +699,10 @@ const Dashboard = () => {
             {/* Participation Details */}
             <div className="mt-12">
               <span className="text-lg font-bold">Participation Details</span>
-              {/* <ParticipationDetails
-                participationDetails={participationDetails}
-                setParticipationDetails={setParticipationDetails}
-              /> */}
-              <Participants />
+              <Participants
+                // participationDetails={participationDetails}
+                // setParticipationDetails={setParticipationDetails}
+              />
             </div>
 
             <div className="mt-12 w-full md:w-9/12">
@@ -806,6 +828,7 @@ const Dashboard = () => {
                     <input
                       id="Transaction"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
+                      // @ts-ignore
                       value={data?.transactionNumber}
                       onChange={(e) => {
                         setData({
@@ -851,24 +874,15 @@ const Dashboard = () => {
                   const allData = {
                     ...data,
                     ContingentInCharge: [contingent1, contingent2],
-                    // ParticipationDetails: participationDetails
+                    ParticipationDetails: participationDetails,
                   };
-                  // if (totalContingent === 2) {
-                  // } else {
-                  //   allData = {
-                  //     ...data,
-                  //     ContingentInCharge: [contingent1],
-                  //     // ParticipationDetails: participationDetails
-                  //   };
-                  // }
-
                   try {
                     const res = await axios.post("/api/saveResponse", allData, {
                       headers: {
                         Authorization: `Bearer ${token}`,
                       },
                     });
-                    // console.log(res);
+                    console.log(res);
                     showNotification({
                       title: "Data Added Successfully",
                       message: "Your data has been added successfully",

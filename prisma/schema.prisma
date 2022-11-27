@@ -32,7 +32,7 @@ model UserResponse {
   departureMode String?
 
   eligibilityCertificatesUrl String?
-  CurriculumVitaeUrl         String?
+  curriculumVitaeUrl         String?
 
   totalAmount Int?
 
