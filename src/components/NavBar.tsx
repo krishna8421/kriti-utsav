@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RiArrowDropDownLine } from "react-icons/ri";
 import { useState } from "react";
 import { Drawer, Menu } from "@mantine/core";
 import Cookies from "js-cookie";
@@ -27,14 +28,14 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           onClick={() => router.push("/")}
         />
       </div>
-      <div className="hidden md:block">
-        <span
+      <div className="hidden items-center justify-between md:flex">
+        <div
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
           onClick={() => router.push("/about")}
         >
           About
-        </span>
-        <span
+        </div>
+        <div
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
           onClick={() => {
             if (handleEventsClick) {
@@ -45,18 +46,18 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           }}
         >
           Events
-        </span>
+        </div>
         <Menu shadow="md" width={200}>
           <Menu.Target>
-            <span className="mr-8 cursor-pointer text-lg font-bold text-custom-purple">
-              Download
-            </span>
+            <div className="cursor-pointer text-lg font-bold text-custom-purple">
+              Downloads
+            </div>
           </Menu.Target>
 
           <Menu.Dropdown>
             <Menu.Item
               onClick={() => {
-                window && window.open("/Curriculam-Vitae.pdf");
+                window && window.open("/Curriculam-Vitae_KritiUtsav.pdf");
               }}
             >
               Curriculum Vitae
@@ -80,14 +81,15 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             </Menu.Item>
             <Menu.Item
               onClick={() => {
-                window && window.open("/CheckList-KritiUtsav.pdf");
+                window && window.open("/Checklist-Kriti Utsav.pdf");
               }}
             >
               CheckList
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
-        <span
+        <RiArrowDropDownLine size={20} className="mr-6 cursor-pointer" />
+        <div
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
           onClick={() => {
             if (handleContactClick) {
@@ -98,18 +100,18 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           }}
         >
           Contact
-        </span>
+        </div>
         {isAuth && (
-          <span
+          <div
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => {
               router.push("/dashboard");
             }}
           >
             Dashboard
-          </span>
+          </div>
         )}
-        <span
+        <div
           className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
           onClick={() => {
             if (isAuth) {
@@ -121,7 +123,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           }}
         >
           {isAuth ? "Logout" : "Login"}
-        </span>
+        </div>
       </div>
       <GiHamburgerMenu
         size={30}
@@ -140,29 +142,33 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
         transitionTimingFunction="ease"
       >
         <div className="flex h-full flex-col items-center justify-center gap-16">
-          <span
+          <div
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/about")}
           >
             About
-          </span>
-          <span
+          </div>
+          <div
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/?tab=events")}
           >
             Events
-          </span>
+          </div>
           <Menu shadow="md" width={200}>
             <Menu.Target>
-              <span className="mr-8 cursor-pointer text-lg font-bold text-custom-purple">
-                Download
-              </span>
+              <div className="mr-8 flex cursor-pointer items-center text-lg font-bold text-custom-purple">
+                <div>Downloads</div>
+                <RiArrowDropDownLine
+                  size={20}
+                  className="mr-6 cursor-pointer"
+                />
+              </div>
             </Menu.Target>
 
             <Menu.Dropdown>
               <Menu.Item
                 onClick={() => {
-                  window && window.open("/Curriculam-Vitae.pdf");
+                  window && window.open("/Curriculam-Vitae_KritiUtsav.pdf");
                 }}
               >
                 Curriculum Vitae
@@ -186,30 +192,30 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
               </Menu.Item>
               <Menu.Item
                 onClick={() => {
-                  window && window.open("/CheckList-KritiUtsav.pdf");
+                  window && window.open("/Checklist-Kriti Utsav.pdf");
                 }}
               >
                 CheckList
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
-          <span
+          <div
             className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/?tab=contact")}
           >
             Contact
-          </span>
+          </div>
           {isAuth && (
-            <span
+            <div
               className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
               onClick={() => {
                 router.push("/dashboard");
               }}
             >
               Dashboard
-            </span>
+            </div>
           )}
-          <span
+          <div
             className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
             onClick={() => {
               if (isAuth) {
@@ -221,7 +227,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             }}
           >
             {isAuth ? "Logout" : "Login"}
-          </span>
+          </div>
         </div>
       </Drawer>
     </div>
