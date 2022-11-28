@@ -99,20 +99,80 @@ const Participants = () => {
   const handleAddFields = () => {
     tabSection === 1 &&
       fineArts.length < 13 &&
-      setFineArts([...fineArts, { ...defaultFineArts, id: uuid() }]);
+      setFineArts([
+        ...fineArts,
+        {
+          id: uuid(),
+          eventType: "fineArts",
+          event: "DEFAULT",
+          name: "",
+          gender: "DEFAULT",
+          DOB: "",
+          modeOfParticipation: "DEFAULT",
+          photoUrl: "",
+        },
+      ]);
 
     tabSection === 2 &&
       literary.length < 6 &&
-      setLiterary([...literary, { ...defaultLiterary, id: uuid() }]);
+      setLiterary([
+        ...literary,
+        {
+          id: uuid(),
+          eventType: "literary",
+          event: "DEFAULT",
+          name: "",
+          gender: "DEFAULT",
+          DOB: "",
+          modeOfParticipation: "DEFAULT",
+          photoUrl: "",
+        },
+      ]);
     tabSection === 3 &&
       music.length < 48 &&
-      setMusic([...music, { ...defaultMusic, id: uuid() }]);
+      setMusic([
+        ...music,
+        {
+          id: uuid(),
+          eventType: "music",
+          event: "DEFAULT",
+          name: "",
+          gender: "DEFAULT",
+          DOB: "",
+          modeOfParticipation: "DEFAULT",
+          photoUrl: "",
+        },
+      ]);
     tabSection === 4 &&
       dance.length < 19 &&
-      setDance([...dance, { ...defaultDance, id: uuid() }]);
+      setDance([
+        ...dance,
+        {
+          id: uuid(),
+          eventType: "dance",
+          event: "DEFAULT",
+          name: "",
+          gender: "DEFAULT",
+          DOB: "",
+          modeOfParticipation: "DEFAULT",
+          photoUrl: "",
+        },
+      ]);
     tabSection === 5 &&
       theatre.length < 30 &&
-      setTheatre([...theatre, { ...defaultTheatre, id: uuid() }]);
+      setTheatre([
+        ...theatre,
+        {
+          id: uuid(),
+          eventType: "theatre",
+          event: "DEFAULT",
+          name: "",
+          gender: "DEFAULT",
+          DOB: "",
+          modeOfParticipation: "DEFAULT",
+          photoUrl: "",
+        },
+      ]);
   };
 
   const handleSaveDetails = () => {
