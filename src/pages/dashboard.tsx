@@ -277,17 +277,18 @@ const Dashboard = () => {
                 <div className="flex justify-end">
                   <FileInput
                     accept="image/png,image/jpeg,image/jpg"
-                    placeholder={
-                      //@ts-ignore
-                      contingent1.photoUrl
-                        ? //@ts-ignore
-                          contingent1.photoUrl
-                            .trim()
-                            .split("o/")[1]
-                            .split("?")[0]
-                            .split("%2F")[1]
-                        : "Upload Your Photo"
-                    }
+                    // placeholder={
+                    //   //@ts-ignore
+                    //   contingent1.photoUrl
+                    //     ? //@ts-ignore
+                    //       contingent1.photoUrl
+                    //         .trim()
+                    //         .split("o/")[1]
+                    //         .split("?")[0]
+                    //         .split("%2F")[1]
+                    //     : "Upload Your Photo"
+                    // }
+                    placeholder="Upload Your Photo"
                     styles={{
                       placeholder: {
                         color: "#2E1739",
@@ -436,17 +437,18 @@ const Dashboard = () => {
                 <div className="flex justify-end">
                   <FileInput
                     accept="image/png,image/jpeg,image/jpg"
-                    placeholder={
-                      //@ts-ignore
-                      contingent2.photoUrl
-                        ? //@ts-ignore
-                          contingent2.photoUrl
-                            .trim()
-                            .split("o/")[1]
-                            .split("?")[0]
-                            .split("%2F")[1]
-                        : "Upload Your Photo"
-                    }
+                    // placeholder={
+                    //   //@ts-ignore
+                    //   contingent2.photoUrl
+                    //     ? //@ts-ignore
+                    //       contingent2.photoUrl
+                    //         .trim()
+                    //         .split("o/")[1]
+                    //         .split("?")[0]
+                    //         .split("%2F")[1]
+                    //     : "Upload Your Photo"
+                    // }
+                    placeholder="Upload Your Photo"
                     styles={{
                       placeholder: {
                         color: "#2E1739",
@@ -739,17 +741,18 @@ const Dashboard = () => {
                 </div>
                 <FileInput
                   accept="application/pdf,application/zip"
-                  placeholder={
-                    //@ts-ignore
-                    data.eligibilityCertificatesUrl
-                      ? //@ts-ignore
-                        data.eligibilityCertificatesUrl
-                          .trim()
-                          .split("o/")[1]
-                          .split("?")[0]
-                          .split("%2F")[1]
-                      : "Upload Zip/PDF"
-                  }
+                  // placeholder={
+                  //   //@ts-ignore
+                  //   data.eligibilityCertificatesUrl
+                  //     ? //@ts-ignore
+                  //       data.eligibilityCertificatesUrl
+                  //         .trim()
+                  //         .split("o/")[1]
+                  //         .split("?")[0]
+                  //         .split("%2F")[1]
+                  //     : "Upload Zip/PDF"
+                  // }
+                  placeholder="Upload Zip/PDF"
                   styles={{
                     placeholder: {
                       color: "#2E1739",
@@ -783,17 +786,18 @@ const Dashboard = () => {
                 </div>
                 <FileInput
                   accept="application/pdf,application/zip"
-                  placeholder={
-                    //@ts-ignore
-                    data.curriculumVitaeUrl
-                      ? //@ts-ignore
-                        data.curriculumVitaeUrl
-                          .trim()
-                          .split("o/")[1]
-                          .split("?")[0]
-                          .split("%2F")[1]
-                      : "Upload Zip/PDF"
-                  }
+                  // placeholder={
+                  //   //@ts-ignore
+                  //   data.curriculumVitaeUrl
+                  //     ? //@ts-ignore
+                  //       data.curriculumVitaeUrl
+                  //         .trim()
+                  //         .split("o/")[1]
+                  //         .split("?")[0]
+                  //         .split("%2F")[1]
+                  //     : "Upload Zip/PDF"
+                  // }
+                  placeholder="Upload Zip/PDF"
                   styles={{
                     placeholder: {
                       color: "#2E1739",
@@ -881,17 +885,18 @@ const Dashboard = () => {
                   <div className="w-full md:w-auto">
                     <FileInput
                       accept="application/pdf"
-                      placeholder={
-                        //@ts-ignore
-                        data.transactionPhotoUrl
-                          ? //@ts-ignore
-                            data.transactionPhotoUrl
-                              .trim()
-                              .split("o/")[1]
-                              .split("?")[0]
-                              .split("%2F")[1]
-                          : "Upload  Scanned/SoftCopy of the Slip"
-                      }
+                      // placeholder={
+                      //   //@ts-ignore
+                      //   data.transactionPhotoUrl
+                      //     ? //@ts-ignore
+                      //       data.transactionPhotoUrl
+                      //         .trim()
+                      //         .split("o/")[1]
+                      //         .split("?")[0]
+                      //         .split("%2F")[1]
+                      //     : "Upload  Scanned/SoftCopy of the Slip"
+                      // }
+                      placeholder="Upload  Scanned/SoftCopy of the Slip"
                       icon={<BiCloudUpload size={24} color="#2E1739" />}
                       styles={{
                         placeholder: {
