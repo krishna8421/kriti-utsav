@@ -52,9 +52,6 @@ const Home: NextPage = () => {
             <h3 className="mb-8 text-center text-lg font-bold text-custom-purple">
               23rd - 27th December 2022
             </h3>
-            <h3 className="mb-12 text-center text-lg font-bold text-custom-red">
-              Registrations will be live soon!
-            </h3>
             <div className="relative h-[80px] w-[260px] sm:h-[140px] sm:w-[455px]">
               <Image
                 src="/home-about-image.png"

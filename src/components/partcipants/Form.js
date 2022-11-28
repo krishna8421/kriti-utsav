@@ -10,7 +10,6 @@ const Form = (props) => {
   const { user } = useAuth();
   const handleChangeInput = (index, event) => {
     const values = [...valueFields];
-    console.log(values);
     values[index][event.target.name] = event.target.value;
     setFields(values);
   };
@@ -157,7 +156,16 @@ const Form = (props) => {
         <div className="flex w-9/12 justify-end">
           <FileInput
             accept="image/png,image/jpeg,image/jpg"
-            placeholder="Upload Photo"
+            placeholder={
+              [...valueFields][index]["photoUrl"]
+                ? //@ts-ignore
+                  values[index]["photoUrl"]
+                    .trim()
+                    .split("o/")[1]
+                    .split("?")[0]
+                    .split("%2F")[1]
+                : "Upload Photo"
+            }
             name="photourl"
             styles={{
               placeholder: {

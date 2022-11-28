@@ -98,22 +98,25 @@ const Participants = () => {
 
   const handleAddFields = () => {
     tabSection === 1 &&
+      fineArts.length < 13 &&
       setFineArts([...fineArts, { ...defaultFineArts, id: uuid() }]);
 
     tabSection === 2 &&
+      literary.length < 6 &&
       setLiterary([...literary, { ...defaultLiterary, id: uuid() }]);
-    tabSection === 3 && setMusic([...music, { ...defaultMusic, id: uuid() }]);
-    tabSection === 4 && setDance([...dance, { ...defaultDance, id: uuid() }]);
+    tabSection === 3 &&
+      music.length < 48 &&
+      setMusic([...music, { ...defaultMusic, id: uuid() }]);
+    tabSection === 4 &&
+      dance.length < 19 &&
+      setDance([...dance, { ...defaultDance, id: uuid() }]);
     tabSection === 5 &&
+      theatre.length < 30 &&
       setTheatre([...theatre, { ...defaultTheatre, id: uuid() }]);
   };
 
-  console.log("old", fineArts);
-
   const handleSaveDetails = () => {
-    console.log("new", fineArts);
     const participation = fineArts.concat(literary, music, dance, theatre);
-    console.log("participation", participation);
     setParticipationDetails(participation);
   };
 
@@ -257,7 +260,7 @@ const Participants = () => {
 
         <Button
           className={classNames(
-            "ml-2 bg-custom-cream font-bold text-custom-red hover:bg-custom-cream/95",
+            "mt-2 bg-custom-cream font-bold text-custom-red hover:bg-custom-cream/95 md:ml-2 md:mt-0",
             {
               "text-[#841531]": tabSection === 1,
               "text-[#FD8E13]": tabSection === 2,

@@ -79,7 +79,10 @@ const Login = () => {
           <div className="mb-20 flex w-full flex-1 justify-center md:mt-20">
             <div className="flex h-min w-80 flex-col items-center rounded-lg bg-custom-purple p-4">
               <span className="text-xl font-bold text-custom-cream">
-                University Login Portal
+                Login Portal
+              </span>
+              <span className="text-xl text-custom-cream">
+                (University/Institute)
               </span>
               <form
                 onSubmit={form.onSubmit((values) => handleLogin(values))}

@@ -114,7 +114,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           onClick={() => {
             if (isAuth) {
               Cookies.remove("token");
-              router.refresh();
+              router.push("/");
             } else {
               router.push("/login");
             }
@@ -214,7 +214,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             onClick={() => {
               if (isAuth) {
                 Cookies.remove("token");
-                router.refresh();
+                router.push("/");
               } else {
                 router.push("/login");
               }
