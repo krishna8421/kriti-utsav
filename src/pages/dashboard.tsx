@@ -1,4 +1,4 @@
-import { Button, Radio } from "@mantine/core";
+import { Button, Radio, LoadingOverlay } from "@mantine/core";
 import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import { MdAddCircleOutline } from "react-icons/md";
@@ -32,6 +32,7 @@ const Dashboard = () => {
 
   const [reload, setReload] = useState(false);
   const reloadData = () => setReload(!reload);
+  const [visible, setVisible] = useState(false);
 
   const [contingent1, setContingent1] = useState<any>({});
   const [contingent2, setContingent2] = useState<any>({});
@@ -45,13 +46,10 @@ const Dashboard = () => {
   // const reloadPDHandler = () => seReloadPD(!reloadPD);
 
   const [data, setData] = useState({});
-
-  // console.log(participationDetails);
-  // console.log("data", data);
-
   const [totalContingent, setTotalContingent] = useState(1);
 
   useEffect(() => {
+    setVisible(true);
     const getUserData = async () => {
       try {
         const token = Cookies.get("token");
@@ -74,6 +72,7 @@ const Dashboard = () => {
             id: uuid(),
           }
         );
+        setVisible(false);
       } catch (err) {
         showNotification({
           title: "Error",
@@ -82,6 +81,7 @@ const Dashboard = () => {
           color: "red",
           autoClose: 3 * 1000,
         });
+        setVisible(false);
       }
     };
     getUserData();
@@ -137,13 +137,12 @@ const Dashboard = () => {
     }
   };
 
-  console.log(contingent2);
-
   return (
-    <div className="min-h-screen overflow-hidden bg-custom-cream text-custom-purple">
+    <div className="relative min-h-screen overflow-hidden bg-custom-cream text-custom-purple">
+      <LoadingOverlay visible={visible} overlayBlur={2} />
       <NavBar />
       <div className="m-auto mb-12 rounded-xl bg-white py-6 px-12 md:max-w-7xl">
-        <form className="">
+        <form>
           <div className="flex flex-wrap items-center gap-12">
             <span className="text-2xl font-bold">Dashboard</span>
             <span className="text-md font-semibold">
@@ -180,7 +179,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="name"
-                    value={contingent1?.name}
+                    value={contingent1?.name ? contingent1.name : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -201,7 +200,7 @@ const Dashboard = () => {
                   <input
                     id="email"
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
-                    value={contingent1?.email}
+                    value={contingent1?.email ? contingent1.email : ""}
                     onChange={(e) => {
                       setContingent1({
                         ...contingent1,
@@ -220,7 +219,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="mobile-num"
-                    value={contingent1?.mobile}
+                    value={contingent1?.mobile ? contingent1.mobile : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -240,8 +239,7 @@ const Dashboard = () => {
                   </label>
                   <select
                     id="gender"
-                    defaultValue="DEFAULT"
-                    value={contingent1?.gender}
+                    value={contingent1?.gender ? contingent1.gender : "DEFAULT"}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -266,7 +264,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="address"
-                    value={contingent1?.address}
+                    value={contingent1?.address ? contingent1.address : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent1({
@@ -343,7 +341,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="name"
-                    value={contingent2?.name}
+                    value={contingent2?.name ? contingent2.name : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -363,7 +361,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="email"
-                    value={contingent2?.email}
+                    value={contingent2?.email ? contingent2.email : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -383,7 +381,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="mobile-num"
-                    value={contingent2?.mobile}
+                    value={contingent2?.mobile ? contingent2.mobile : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -403,8 +401,7 @@ const Dashboard = () => {
                   </label>
                   <select
                     id="gender"
-                    defaultValue="DEFAULT"
-                    value={contingent2?.gender}
+                    value={contingent2?.gender ? contingent2.gender : "DEFAULT"}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -429,7 +426,7 @@ const Dashboard = () => {
                   </label>
                   <input
                     id="address"
-                    value={contingent2?.address}
+                    value={contingent2?.address ? contingent2.address : ""}
                     className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                     onChange={(e) => {
                       setContingent2({
@@ -492,9 +489,13 @@ const Dashboard = () => {
                 </label>
                 <select
                   id="contingent-strength"
-                  defaultValue="DEFAULT"
-                  // @ts-ignore
-                  value={data?.contingentStrength}
+                  value={
+                    // @ts-ignore
+                    data?.contingentStrength
+                      ? // @ts-ignore
+                        data.contingentStrength
+                      : "DEFAULT"
+                  }
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
                   onChange={(e) => {
                     setData({
@@ -520,9 +521,13 @@ const Dashboard = () => {
                 <label id="contingent-strength-male">Enter Total Male</label>
                 <select
                   id="contingent-strength-male"
-                  defaultValue="DEFAULT"
-                  // @ts-ignore
-                  value={data?.totalContingentMale}
+                  value={
+                    // @ts-ignore
+                    data?.totalContingentMale
+                      ? // @ts-ignore
+                        data.totalContingentMale
+                      : "DEFAULT"
+                  }
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
                   onChange={(e) => {
                     setData({
@@ -550,10 +555,14 @@ const Dashboard = () => {
                 </label>
                 <select
                   id="contingent-strength-female"
-                  defaultValue="DEFAULT"
                   className="border-spacing-2 rounded-lg border-2 border-custom-purple bg-custom-cream p-2"
-                  // @ts-ignore
-                  value={data?.totalContingentFemale}
+                  value={
+                    // @ts-ignore
+                    data?.totalContingentFemale
+                      ? // @ts-ignore
+                        data.totalContingentFemale
+                      : "DEFAULT"
+                  }
                   onChange={(e) => {
                     setData({
                       ...data,
@@ -600,7 +609,7 @@ const Dashboard = () => {
                       id="arrival-date"
                       type="date"
                       // @ts-ignore
-                      value={data?.arrivalDate}
+                      value={data?.arrivalDate ? data.arrivalDate : ""}
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       onChange={(e) => {
                         setData({
@@ -623,7 +632,7 @@ const Dashboard = () => {
                       // @ts-ignore
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       // @ts-ignore
-                      value={data?.arrivalTime}
+                      value={data?.arrivalTime ? data.arrivalTime : ""}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -669,7 +678,7 @@ const Dashboard = () => {
                       type="date"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       // @ts-ignore
-                      value={data?.departureDate}
+                      value={data?.departureDate ? data.departureDate : ""}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -691,7 +700,7 @@ const Dashboard = () => {
                       type="time"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       // @ts-ignore
-                      value={data?.departureTime}
+                      value={data?.departureTime ? data.departureTime : ""}
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -734,10 +743,7 @@ const Dashboard = () => {
                   ( * uploded photo size could not exist 1 MB )
                 </span>
               </div>
-              <Participants
-              // participationDetails={participationDetails}
-              // setParticipationDetails={setParticipationDetails}
-              />
+              <Participants />
             </div>
 
             <div className="mt-12 w-full md:w-9/12">
@@ -896,7 +902,10 @@ const Dashboard = () => {
                       id="Transaction"
                       className="w-full border-spacing-2 rounded-lg border-2 border-custom-purple bg-[#FFDDB8] p-2"
                       // @ts-ignore
-                      value={data?.transactionNumber}
+                      value={
+                        // @ts-ignore
+                        data?.transactionNumber ? data?.transactionNumber : ""
+                      }
                       onChange={(e) => {
                         setData({
                           ...data,
@@ -949,6 +958,7 @@ const Dashboard = () => {
               <Button
                 className="rounded-lg border-custom-purple bg-custom-purple text-xl font-bold text-white hover:border-2 hover:bg-custom-cream hover:text-custom-purple md:h-12 md:w-2/12"
                 onClick={async () => {
+                  setVisible(true);
                   const token = Cookies.get("token");
                   const allData = {
                     ...data,
@@ -968,6 +978,7 @@ const Dashboard = () => {
                       color: "green",
                       autoClose: 3 * 1000,
                     });
+                    setVisible(false);
                     reloadData();
                   } catch (err) {
                     showNotification({
@@ -976,6 +987,7 @@ const Dashboard = () => {
                       color: "red",
                       autoClose: 3 * 1000,
                     });
+                    setVisible(false);
                     reloadData();
                   }
 

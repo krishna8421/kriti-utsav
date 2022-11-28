@@ -112,7 +112,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           </div>
         )}
         <div
-          className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
+          className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-9 py-2 text-lg font-bold text-white`}
           onClick={() => {
             if (isAuth) {
               Cookies.remove("token");
@@ -216,7 +216,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             </div>
           )}
           <div
-            className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-6 py-3 text-lg font-bold text-white`}
+            className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-9 py-2 text-lg font-bold text-white`}
             onClick={() => {
               if (isAuth) {
                 Cookies.remove("token");

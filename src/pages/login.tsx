@@ -1,12 +1,12 @@
 import { NavBar } from "../components/NavBar";
 import Image from "next/image";
 import { Footer } from "../components/Footer";
-import { TextInput, Button } from "@mantine/core";
+import { TextInput, Button, LoadingOverlay } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 
 interface IHandleLogin {
@@ -15,6 +15,8 @@ interface IHandleLogin {
 }
 
 const Login = () => {
+  const [visible, setVisible] = useState(false);
+
   const router = useRouter();
   const form = useForm({
     initialValues: {
@@ -40,9 +42,11 @@ const Login = () => {
   }, [isAuth, router]);
 
   const handleLogin = async (values: IHandleLogin) => {
+    setVisible(true);
     try {
       await axios.post("/api/login", values);
       router.push("/dashboard");
+      setVisible(false);
     } catch (err: any) {
       showNotification({
         title: "Error",
@@ -50,11 +54,13 @@ const Login = () => {
         color: "red",
         autoClose: 3 * 1000,
       });
+      setVisible(false);
     }
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-custom-cream">
+    <div className="relative min-h-screen overflow-hidden bg-custom-cream">
+      <LoadingOverlay visible={visible} overlayBlur={2} />
       <NavBar />
       <div className="m-auto md:max-w-7xl">
         <main className="flex flex-wrap justify-center">
