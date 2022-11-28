@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { GoDiffAdded } from "react-icons/go";
 import Form from "./partcipants/Form";
-import { v4 as uuid } from "uuid";
+import { v1 as uuid } from "uuid";
 import { Button } from "@mantine/core";
 import { participationDetailsAtom } from "../store/participationDetails";
 import { useAtom } from "jotai";

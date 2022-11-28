@@ -9,26 +9,24 @@ import { useAuth } from "../hooks/useAuth";
 import Participants from "../components/Participants";
 import { useEffect, useState } from "react";
 import { showNotification } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { v4 as uuid } from "uuid";
+import { v1 as uuid } from "uuid";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { participationDetailsAtom } from "../store/participationDetails";
 import { useAtom } from "jotai";
 
 const Dashboard = () => {
-  const { isAuth, user, isLoading } = useAuth();
-  // const router = useRouter();
-  // useEffect(() => {
-  //   if (!isAuth && !isLoading) {
-  //     console.log("no login");
-  //     console.log({ isAuth, isLoading });
-  //   } else {
-  //     console.log("login");
-  //     console.log({ isAuth, isLoading });
-  //   }
-  // }, [isAuth, router, isLoading]);
+  const { user } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
 
   const [reload, setReload] = useState(false);
   const reloadData = () => setReload(!reload);
@@ -971,7 +969,7 @@ const Dashboard = () => {
                         Authorization: `Bearer ${token}`,
                       },
                     });
-                    console.log(res);
+                    // console.log(res);
                     showNotification({
                       title: "Data Added Successfully",
                       message: "Your data has been added successfully",
