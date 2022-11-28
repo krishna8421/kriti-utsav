@@ -157,9 +157,8 @@ const Form = (props) => {
           <FileInput
             accept="image/png,image/jpeg,image/jpg"
             placeholder={
-              [...valueFields][index]["photoUrl"]
-                ? //@ts-ignore
-                  values[index]["photoUrl"]
+              fields.photoUrl
+                ? fields.photoUrl
                     .trim()
                     .split("o/")[1]
                     .split("?")[0]
