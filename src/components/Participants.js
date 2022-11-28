@@ -74,7 +74,7 @@ const Participants = () => {
   const [literary, setLiterary] = useState([defaultLiterary]);
   const [music, setMusic] = useState([defaultMusic]);
   const [dance, setDance] = useState([defaultDance]);
-  const [theatre, setTheatre] = useState([defaultDance]);
+  const [theatre, setTheatre] = useState([defaultTheatre]);
 
   useEffect(() => {
     let f = [],
@@ -106,6 +106,15 @@ const Participants = () => {
     tabSection === 4 && setDance([...dance, { ...defaultDance, id: uuid() }]);
     tabSection === 5 &&
       setTheatre([...theatre, { ...defaultTheatre, id: uuid() }]);
+  };
+
+  console.log("old", fineArts);
+
+  const handleSaveDetails = () => {
+    console.log("new", fineArts);
+    const participation = fineArts.concat(literary, music, dance, theatre);
+    console.log("participation", participation);
+    setParticipationDetails(participation);
   };
 
   return (
@@ -244,6 +253,27 @@ const Participants = () => {
           leftIcon={<GoDiffAdded size={20} />}
         >
           Add Participants
+        </Button>
+
+        <Button
+          className={classNames(
+            "ml-2 bg-custom-cream font-bold text-custom-red hover:bg-custom-cream/95",
+            {
+              "text-[#841531]": tabSection === 1,
+              "text-[#FD8E13]": tabSection === 2,
+              "text-[#E52A48]": tabSection === 3,
+              "text-[#1A8C92]": tabSection === 4,
+              "text-[#2E1739]": tabSection === 5,
+            }
+          )}
+          radius="md"
+          size="md"
+          onClick={() => {
+            handleSaveDetails();
+          }}
+          leftIcon={<GoDiffAdded size={20} />}
+        >
+          Save Details
         </Button>
       </div>
     </div>
