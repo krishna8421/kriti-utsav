@@ -96,6 +96,7 @@ const Login = () => {
                   className="mt-8"
                 />
                 <TextInput
+                  type="password"
                   radius="xl"
                   size="md"
                   placeholder="Enter your password"

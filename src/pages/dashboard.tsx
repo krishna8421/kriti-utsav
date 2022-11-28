@@ -165,7 +165,7 @@ const Dashboard = () => {
                   />
                   Add Another
                   <br />
-                  Contingent
+                  Contingent In-Charge I
                 </Button>
               </div>
               <div className="mt-4 flex flex-col gap-2">
@@ -274,7 +274,7 @@ const Dashboard = () => {
                     }}
                   />
                 </div>
-                <div className="flex justify-end">
+                <div className="flex flex-col items-end">
                   <FileInput
                     accept="image/png,image/jpeg,image/jpg"
                     // placeholder={
@@ -309,7 +309,10 @@ const Dashboard = () => {
                         photoUrl: url,
                       });
                     }}
-                  />
+                  />{" "}
+                  <div className="text-sm font-semibold text-red-700">
+                    ( * uploded document size could not exist 1 MB )
+                  </div>
                 </div>
               </div>
             </div>
@@ -323,9 +326,9 @@ const Dashboard = () => {
                   onClick={removeContingent}
                 >
                   <MdRemoveCircle className="mr-2" size={18} color="#FCEDDC" />
-                  Remove
+                  Remove Contingent
                   <br />
-                  Contingent
+                  In - Charge II
                 </Button>
               </div>
               <div className="mt-4 flex flex-col gap-2">
@@ -434,7 +437,7 @@ const Dashboard = () => {
                     }}
                   />
                 </div>
-                <div className="flex justify-end">
+                <div className="flex flex-col items-end">
                   <FileInput
                     accept="image/png,image/jpeg,image/jpg"
                     // placeholder={
@@ -470,6 +473,9 @@ const Dashboard = () => {
                       });
                     }}
                   />
+                  <div className="text-sm font-semibold text-red-700">
+                    ( * uploded document size could not exist 1 MB )
+                  </div>
                 </div>
               </div>
             </div>
@@ -720,7 +726,12 @@ const Dashboard = () => {
 
             {/* Participation Details */}
             <div className="mt-12">
-              <span className="text-lg font-bold">Participation Details</span>
+              <div className="text-lg font-bold">
+                Participation Details{" "}
+                <span className="text-sm font-semibold text-red-700">
+                  ( * uploded photo size could not exist 1 MB )
+                </span>
+              </div>
               <Participants
               // participationDetails={participationDetails}
               // setParticipationDetails={setParticipationDetails}
@@ -728,7 +739,12 @@ const Dashboard = () => {
             </div>
 
             <div className="mt-12 w-full md:w-9/12">
-              <span className="text-lg font-bold">Uploads</span>
+              <div className="text-lg font-bold">
+                Uploads{" "}
+                <span className="text-sm font-semibold text-red-700">
+                  ( * uploded document size could not exist 5 MB )
+                </span>
+              </div>
               <div className="flex w-full items-center justify-between font-semibold">
                 <div>
                   <p>
@@ -827,7 +843,7 @@ const Dashboard = () => {
                 </p>
                 <p className="font-bold">
                   Total Fee Amount to be Paid (in Rs.): Rs.
-                  <span className="my-1 ml-2 rounded bg-custom-cream p-1 md:ml-12 md:px-4 md:py-2">
+                  <span className="my-1 mx-2 rounded bg-custom-cream p-1 md:ml-12 md:px-4 md:py-2">
                     {
                       // @ts-ignore
                       data?.totalAmount
@@ -838,28 +854,33 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="mt-12">
-              <span className="text-lg font-bold">Mode of Payment</span>
-              <p className="text-sm font-bold">
-                Only NEFT/RTGS is accceptable.
-              </p>
-              <p className="text-sm">
-                <span className="font-semibold">A/C Name:</span> KIIT STUDENT
+            <div className="mt-12 text-lg font-semibold">
+              <span className=" text-xl font-bold md:text-2xl">
+                Mode of Payment
+              </span>
+              <p className="font-bold">Only NEFT/RTGS is accceptable.</p>
+              <p>
+                <span className="font-bold">A/C Name:</span> KIIT STUDENT
                 ACTIVITY CENTER
                 <br />
-                <span className="font-semibold">A/C Number: </span> 50258662673
+                <span className="font-bold">A/C Number: </span> 50258662673
                 <br />
-                <span className="font-semibold">Bank/Branch: </span> Indian
-                Bank, KIIT BRANCH IFSC Code: IDIB000K717
+                <span className="font-bold">Bank/Branch: </span> Indian Bank,
+                KIIT BRANCH IFSC Code: IDIB000K717
                 <br />
-                <span className="font-semibold">Address: </span> Koel Campus,
-                KIIT University, Patia, Bhubaneswar-751024
+                <span className="font-bold">Address: </span> Koel Campus, KIIT
+                University, Patia, Bhubaneswar-751024
                 <br />
               </p>
             </div>
 
             <div className="mt-12">
-              <span className="text-lg font-bold">Payment Confirmation</span>
+              <div className="text-lg font-bold">
+                Payment Confirmation{" "}
+                <span className="text-sm font-semibold text-red-700">
+                  ( * uploded document size could not exist 50 kb )
+                </span>
+              </div>
               <div className="mt-4 w-full items-center justify-between md:flex">
                 <div className="w-full items-center lg:flex">
                   <label
@@ -924,6 +945,7 @@ const Dashboard = () => {
             </div>
             <div className="mt-12 flex w-full justify-end gap-6">
               <Button
+                className="rounded-lg border-custom-purple bg-custom-purple text-xl font-bold text-white hover:border-2 hover:bg-custom-cream hover:text-custom-purple md:h-12 md:w-2/12"
                 onClick={async () => {
                   const token = Cookies.get("token");
                   const allData = {

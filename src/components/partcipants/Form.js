@@ -156,16 +156,16 @@ const Form = (props) => {
         <div className="flex w-9/12 justify-end">
           <FileInput
             accept="image/png,image/jpeg,image/jpg"
-            // placeholder={
-            //   fields.photoUrl
-            //     ? fields.photoUrl
-            //         .trim()
-            //         .split("o/")[1]
-            //         .split("?")[0]
-            //         .split("%2F")[1]
-            //     : "Upload Photo"
-            // }
-            placeholder="Upload Photo"
+            placeholder={
+              fields.photoUrl
+                ? fields.photoUrl
+                    .trim()
+                    .split("o/")[1]
+                    .split("?")[0]
+                    .split("%2F")[1]
+                : "Upload Photo"
+            }
+            // placeholder="Upload Photo"
             name="photourl"
             styles={{
               placeholder: {
