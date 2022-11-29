@@ -164,7 +164,7 @@ const Dashboard = () => {
                   />
                   Add Another
                   <br />
-                  Contingent In-Charge I
+                  Contingent In-Charge
                 </Button>
               </div>
               <div className="mt-4 flex flex-col gap-2">
@@ -309,7 +309,7 @@ const Dashboard = () => {
                     }}
                   />{" "}
                   <div className="text-sm font-semibold text-red-700">
-                    ( * uploded document size could not exist 1 MB )
+                    ( * uploaded photo size should not exceed 1 MB )
                   </div>
                 </div>
               </div>
@@ -471,7 +471,7 @@ const Dashboard = () => {
                     }}
                   />
                   <div className="text-sm font-semibold text-red-700">
-                    ( * uploded document size could not exist 1 MB )
+                    ( * uploaded photo size should not exceed 1 MB )
                   </div>
                 </div>
               </div>
@@ -738,7 +738,7 @@ const Dashboard = () => {
               <div className="text-lg font-bold">
                 Participation Details{" "}
                 <span className="text-sm font-semibold text-red-700">
-                  ( * uploded photo size could not exist 1 MB )
+                  ( * uploaded photo size should not exceed 1 MB )
                 </span>
               </div>
               <Participants />
@@ -748,7 +748,7 @@ const Dashboard = () => {
               <div className="text-lg font-bold">
                 Uploads{" "}
                 <span className="text-sm font-semibold text-red-700">
-                  ( * uploded document size could not exist 5 MB )
+                  ( * uploaded document size should not exceed 5 MB )
                 </span>
               </div>
               <div className="flex w-full items-center justify-between font-semibold">
@@ -884,7 +884,7 @@ const Dashboard = () => {
               <div className="text-lg font-bold">
                 Payment Confirmation{" "}
                 <span className="text-sm font-semibold text-red-700">
-                  ( * uploded document size could not exist 50 kb )
+                  ( * uploaded document size should not exceed 50 kb )
                 </span>
               </div>
               <div className="mt-4 w-full items-center justify-between md:flex">
