@@ -8,6 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import Head from "next/head";
 
 interface IHandleLogin {
   username: string;
@@ -60,6 +61,23 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-custom-cream">
+      <Head>
+        <title>KRITI UTSAV - Login</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+        <meta
+          name="description"
+          content="36th Inter University East Zone Youth Festival hosted by Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar from 23rd to 27th December 2022 under the aegies of Association of Indian Universities(AIU)."
+        ></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:url" content="https://kritiutsav.kiit.ac.in/"></meta>
+        <meta property="og:title" content="KRITI UTSAV"></meta>
+        <meta
+          property="og:description"
+          content="36th Inter University East Zone Youth Festival hosted by Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar from 23rd to 27th December 2022 under the aegies of Association of Indian Universities(AIU)."
+        ></meta>
+        <meta property="og:image" content="/favicon.ico"></meta>
+      </Head>
       <LoadingOverlay visible={visible} overlayBlur={2} />
       <NavBar />
       <div className="m-auto md:max-w-7xl">

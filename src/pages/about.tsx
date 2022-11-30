@@ -1,12 +1,30 @@
 import { Footer } from "../components/Footer";
 import { NavBar } from "../components/NavBar";
 import Image from "next/image";
+import Head from "next/head";
 
 const About = () => {
   return (
     <div className="min-h-screen overflow-hidden bg-custom-cream">
+      <Head>
+        <title>KRITI UTSAV - About</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+        <meta
+          name="description"
+          content="36th Inter University East Zone Youth Festival hosted by Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar from 23rd to 27th December 2022 under the aegies of Association of Indian Universities(AIU)."
+        ></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:url" content="https://kritiutsav.kiit.ac.in/"></meta>
+        <meta property="og:title" content="KRITI UTSAV"></meta>
+        <meta
+          property="og:description"
+          content="36th Inter University East Zone Youth Festival hosted by Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar from 23rd to 27th December 2022 under the aegies of Association of Indian Universities(AIU)."
+        ></meta>
+        <meta property="og:image" content="/favicon.ico"></meta>
+      </Head>
       <NavBar />
-      <div className="m-auto p-4 md:max-w-7xl mb-12">
+      <div className="m-auto mb-12 p-4 md:max-w-7xl">
         <main className="flex flex-col gap-8">
           <div>
             <h1 className="text-3xl font-bold text-custom-purple">
