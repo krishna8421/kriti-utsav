@@ -53,15 +53,18 @@ const Home: NextPage = () => {
         handleEventsClick={handleEventsClick}
         handleContactClick={handleContactClick}
       />
-      <div className="m-auto md:max-w-6xl">
+      <div className="m-auto md:max-w-7xl">
         <main className="flex w-full flex-wrap justify-center gap-4 py-6 md:gap-20">
           <div className="relative h-[250px] w-[250px] sm:h-[500px] sm:w-[500px]">
             <Image
-              src="/home-main-image.png"
+              src="/header-circle.png"
               alt="Home main image"
               fill
-              className="absolute"
+              className="animate-spin-slow"
             />
+            <div className="absolute right-8 top-[25%] h-32 w-9/12 md:top-[27%] md:right-16 md:h-60">
+              <Image src="/header-logo.png" alt="Home main image" fill />
+            </div>
           </div>
           <div className="mt-6 w-min lg:mt-12">
             <h1 className="text-center text-3xl font-extrabold text-custom-purple">
