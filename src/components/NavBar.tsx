@@ -86,6 +86,13 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             >
               CheckList
             </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                window && window.open("/Brochure_KritiUtsav.pdf");
+              }}
+            >
+              Brochure
+            </Menu.Item>
           </Menu.Dropdown>
         </Menu>
         <RiArrowDropDownLine size={20} className="mr-6 cursor-pointer" />
@@ -143,25 +150,22 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
       >
         <div className="flex h-full flex-col items-center justify-center gap-16">
           <div
-            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            className="cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/about")}
           >
             About
           </div>
           <div
-            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            className="cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/?tab=events")}
           >
             Events
           </div>
-          <Menu shadow="md" width={200}>
+          <Menu shadow="md">
             <Menu.Target>
-              <div className="mr-8 flex cursor-pointer items-center text-lg font-bold text-custom-purple">
+              <div className=" ml-5 flex cursor-pointer items-center text-lg font-bold text-custom-purple">
                 <div>Downloads</div>
-                <RiArrowDropDownLine
-                  size={20}
-                  className="mr-6 cursor-pointer"
-                />
+                <RiArrowDropDownLine size={20} className="cursor-pointer" />
               </div>
             </Menu.Target>
 
@@ -197,17 +201,24 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
               >
                 CheckList
               </Menu.Item>
+              <Menu.Item
+                onClick={() => {
+                  window && window.open("/Brochure_KritiUtsav.pdf");
+                }}
+              >
+                Brochure
+              </Menu.Item>
             </Menu.Dropdown>
           </Menu>
           <div
-            className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+            className="cursor-pointer text-lg font-bold text-custom-purple"
             onClick={() => router.push("/?tab=contact")}
           >
             Contact
           </div>
           {isAuth && (
             <div
-              className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
+              className="cursor-pointer text-lg font-bold text-custom-purple"
               onClick={() => {
                 router.push("/dashboard");
               }}
@@ -216,7 +227,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             </div>
           )}
           <div
-            className={`mr-8 cursor-pointer rounded-full bg-custom-purple px-9 py-2 text-lg font-bold text-white`}
+            className={`cursor-pointer rounded-full bg-custom-purple px-9 py-2 text-lg font-bold text-white`}
             onClick={() => {
               if (isAuth) {
                 Cookies.remove("token");
