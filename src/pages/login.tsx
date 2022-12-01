@@ -83,13 +83,16 @@ const Login = () => {
       <div className="m-auto md:max-w-7xl">
         <main className="flex flex-wrap justify-center">
           <div className="flex flex-1 flex-col items-center">
-            <div className="relative h-[300px] w-[300px] sm:h-[530px] sm:w-[530px]">
+            <div className="relative h-[250px] w-[250px] sm:h-[500px] sm:w-[500px]">
               <Image
-                src="/home-main-image.png"
+                src="/header-circle.png"
                 alt="Home main image"
                 fill
-                className="absolute"
+                className="animate-spin-slow"
               />
+              <div className="absolute right-8 top-[25%] h-32 w-9/12 md:top-[27%] md:right-16 md:h-60">
+                <Image src="/header-logo.png" alt="Home main image" fill />
+              </div>
             </div>
             <h1 className="text-center font-extrabold text-custom-purple">
               36TH INTER UNIVERSITY
@@ -101,7 +104,7 @@ const Login = () => {
             </h3>
           </div>
           <div className="mb-20 flex w-full flex-1 justify-center md:mt-20">
-            <div className="flex h-min w-80 flex-col items-center rounded-lg bg-custom-purple p-4">
+            <div className="flex h-min w-80 flex-col items-center rounded-lg bg-custom-purple p-4 drop-shadow-xl">
               <span className="text-xl font-bold text-custom-cream">
                 Login Portal
               </span>
@@ -115,17 +118,31 @@ const Login = () => {
                 <TextInput
                   radius="xl"
                   size="md"
-                  placeholder="Enter your username"
+                  placeholder="Username"
                   {...form.getInputProps("username")}
-                  className="mt-8"
+                  className="mt-8 bg-[]"
+                  styles={{
+                    input: {
+                      backgroundColor: "#1A8C92",
+                      boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
+                      border: "none",
+                    },
+                  }}
                 />
                 <TextInput
                   type="password"
                   radius="xl"
                   size="md"
-                  placeholder="Enter your password"
+                  placeholder="Password"
                   {...form.getInputProps("password")}
                   className="mt-8"
+                  styles={{
+                    input: {
+                      backgroundColor: "#1A8C92",
+                      boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
+                      border: "none",
+                    },
+                  }}
                 />
                 <Button
                   type="submit"
