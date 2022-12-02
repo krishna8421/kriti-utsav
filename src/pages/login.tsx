@@ -104,7 +104,7 @@ const Login = () => {
             </h3>
           </div>
           <div className="mb-20 flex w-full flex-1 justify-center md:mt-20">
-            <div className="flex h-min w-80 flex-col items-center rounded-lg bg-custom-purple p-4 drop-shadow-xl">
+            <div className="flex h-min w-80 flex-col items-center rounded-lg bg-custom-purple p-4 shadow-xl shadow-[#000000]/50">
               <span className="text-xl font-bold text-custom-cream">
                 Login Portal
               </span>
