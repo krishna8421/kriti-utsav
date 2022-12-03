@@ -55,6 +55,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
             item: {
               color: "#FCEDDC",
               fontWeight: "bold",
+              textAlign: "center",
               "&:hover": {
                 backgroundColor: "#1A8C92",
               },
@@ -62,8 +63,9 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           }}
         >
           <Menu.Target>
-            <div className="cursor-pointer text-lg font-bold text-custom-purple">
-              Downloads
+            <div className="flex cursor-pointer items-center text-lg font-bold text-custom-purple">
+              <div>Downloads</div>
+              <RiArrowDropDownLine size={20} className="mr-6 cursor-pointer" />
             </div>
           </Menu.Target>
 
@@ -104,11 +106,10 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
                 window && window.open("/Brochure_KritiUtsav.pdf");
               }}
             >
-              Brochure
+              Event Brochure
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
-        <RiArrowDropDownLine size={20} className="mr-6 cursor-pointer" />
         <div
           className="mr-8 cursor-pointer text-lg font-bold text-custom-purple"
           onClick={() => {
@@ -174,7 +175,20 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
           >
             Events
           </div>
-          <Menu shadow="md">
+          <Menu
+            shadow="md"
+            styles={{
+              dropdown: { backgroundColor: "#2E1739" },
+              item: {
+                color: "#FCEDDC",
+                fontWeight: "bold",
+                textAlign: "center",
+                "&:hover": {
+                  backgroundColor: "#1A8C92",
+                },
+              },
+            }}
+          >
             <Menu.Target>
               <div className=" ml-5 flex cursor-pointer items-center text-lg font-bold text-custom-purple">
                 <div>Downloads</div>
@@ -219,7 +233,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
                   window && window.open("/Brochure_KritiUtsav.pdf");
                 }}
               >
-                Brochure
+                Event Brochure
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
