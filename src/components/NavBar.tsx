@@ -47,7 +47,20 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
         >
           Events
         </div>
-        <Menu shadow="md" width={200}>
+        <Menu
+          shadow="md"
+          width={200}
+          styles={{
+            dropdown: { backgroundColor: "#2E1739" },
+            item: {
+              color: "#FCEDDC",
+              fontWeight: "bold",
+              "&:hover": {
+                backgroundColor: "#1A8C92",
+              },
+            },
+          }}
+        >
           <Menu.Target>
             <div className="cursor-pointer text-lg font-bold text-custom-purple">
               Downloads
@@ -169,7 +182,7 @@ export const NavBar = ({ handleContactClick, handleEventsClick }: Props) => {
               </div>
             </Menu.Target>
 
-            <Menu.Dropdown>
+            <Menu.Dropdown className="bg-black">
               <Menu.Item
                 onClick={() => {
                   window && window.open("/Curriculam-Vitae_KritiUtsav.pdf");
