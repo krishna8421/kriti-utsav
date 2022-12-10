@@ -159,15 +159,15 @@ const Login = () => {
         <main className="flex flex-wrap justify-center">
           <div className="flex flex-1 flex-col items-center">
             <div className="relative h-[250px] w-[250px] sm:h-[500px] sm:w-[500px]">
+              <div className="absolute right-8 top-[25%] z-10 h-32 w-9/12 md:top-[27%] md:right-16 md:h-60">
+                <Image src="/header-logo.png" alt="Home main image" fill />
+              </div>
               <Image
                 src="/header-circle.png"
                 alt="Home main image"
                 fill
                 className="animate-spin-slow"
               />
-              <div className="absolute right-8 top-[25%] h-32 w-9/12 md:top-[27%] md:right-16 md:h-60">
-                <Image src="/header-logo.png" alt="Home main image" fill />
-              </div>
             </div>
             <h1 className="text-center font-extrabold text-custom-purple">
               36TH INTER UNIVERSITY
