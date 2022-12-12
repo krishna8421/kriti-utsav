@@ -39,11 +39,6 @@ const Dashboard = () => {
     participationDetailsAtom
   );
 
-  // const [participationDetails, setParticipationDetails] = useState<any>([]);
-
-  // const [reloadPD, seReloadPD] = useState(false);
-  // const reloadPDHandler = () => seReloadPD(!reloadPD);
-
   const [data, setData] = useState({});
   const [totalContingent, setTotalContingent] = useState(1);
 
@@ -73,13 +68,13 @@ const Dashboard = () => {
         );
         setVisible(false);
       } catch (err) {
-        showNotification({
-          title: "Error",
-          message:
-            "Unable to fetch Data, Please check your network connection and try again",
-          color: "red",
-          autoClose: 3 * 1000,
-        });
+        // showNotification({
+        //   title: "Error",
+        //   message:
+        //     "Unable to fetch Data, Please check your network connection and try again",
+        //   color: "red",
+        //   autoClose: 3 * 1000,
+        // });
         setVisible(false);
       }
     };
@@ -1072,145 +1067,15 @@ const Dashboard = () => {
                     setVisible(false);
                     reloadData();
                   } catch (err) {
-                    showNotification({
-                      title: "ERROR",
-                      message: "Unable to save data",
-                      color: "red",
-                      autoClose: 3 * 1000,
-                    });
+                    // showNotification({
+                    //   title: "ERROR",
+                    //   message: "Unable to save data",
+                    //   color: "red",
+                    //   autoClose: 3 * 1000,
+                    // });
                     setVisible(false);
                     reloadData();
                   }
-
-                  //   try {
-                  //     const photoUrl1 = await axios.post("/api/s3-upload-url", {
-                  //       // @ts-ignore
-                  //       name: contingent1.photoUrl.name,
-                  //       // @ts-ignore
-                  //       type: contingent1.photoUrl.type,
-                  //     });
-                  //     let photoUrl2;
-                  //     if (totalContingent === 2) {
-                  //       photoUrl2 = await axios.post("/api/s3-upload-url", {
-                  //         // @ts-ignore
-                  //         name: contingent2.photoUrl.name,
-                  //         // @ts-ignore
-                  //         type: contingent2.photoUrl.type,
-                  //       });
-                  //     }
-                  //     const eligibilityCertificatesUrl = await axios.post(
-                  //       "/api/s3-upload-url",
-                  //       {
-                  //         // @ts-ignore
-                  //         name: data.eligibilityCertificatesUrl.name,
-                  //         // @ts-ignore
-                  //         type: data.eligibilityCertificatesUrl.type,
-                  //       }
-                  //     );
-                  //     const curriculumVitaeUrl = await axios.post(
-                  //       "/api/s3-upload-url",
-                  //       {
-                  //         // @ts-ignore
-                  //         name: data.curriculumVitaeUrl.name,
-                  //         // @ts-ignore
-                  //         type: data.curriculumVitaeUrl.type,
-                  //       }
-                  //     );
-                  //     const transactionPhotoUrl = await axios.post(
-                  //       "/api/s3-upload-url",
-                  //       {
-                  //         // @ts-ignore
-                  //         name: data.transactionPhotoUrl.name,
-                  //         // @ts-ignore
-                  //         type: data.transactionPhotoUrl.type,
-                  //       }
-                  //     );
-                  //     // @ts-ignore
-                  //     await UploadPhoto(photoUrl1.data.url, contingent1.photoUrl);
-                  //     if (contingent2 === 2) {
-                  //       await UploadPhoto(
-                  //         photoUrl2?.data.url,
-                  //         // @ts-ignore
-                  //         contingent2.photoUrl
-                  //       );
-                  //     }
-                  //     await UploadPhoto(
-                  //       eligibilityCertificatesUrl.data.url,
-                  //       // @ts-ignore
-                  //       data.eligibilityCertificatesUrl
-                  //     );
-                  //     await UploadPhoto(
-                  //       curriculumVitaeUrl.data.url,
-                  //       // @ts-ignore
-                  //       data.curriculumVitaeUrl
-                  //     );
-                  //     await UploadPhoto(
-                  //       transactionPhotoUrl.data.url,
-                  //       // @ts-ignore
-                  //       data.transactionPhotoUrl
-                  //     );
-                  //     setData({
-                  //       ...data,
-                  //       eligibilityCertificatesUrl:
-                  //         eligibilityCertificatesUrl.data.url,
-                  //       curriculumVitaeUrl: curriculumVitaeUrl.data.url,
-                  //       transactionPhotoUrl: transactionPhotoUrl.data.url,
-                  //     });
-                  //     setContingent1({
-                  //       ...contingent1,
-                  //       photoUrl: photoUrl1.data.url,
-                  //     });
-                  //     setContingent2({
-                  //       ...contingent2,
-                  //       // @ts-ignore
-                  //       photoUrl: photoUrl2.data.url,
-                  //     });UploadPhoto
-                  //     const participationDetailsCopy = participationDetails;
-                  //     participationDetailsCopy.map(async (data) => {
-                  //       const photoUrl = await axios.post("/api/s3-upload-url", {
-                  //         // @ts-ignore
-                  //         name: data.photoUrl.name,
-                  //         // @ts-ignore
-                  //         type: data.photoUrl.type,
-                  //       });
-                  //       // @ts-ignore
-                  //       await UploadPhoto(photoUrl.data.url, data.photoUrl);
-                  //       // @ts-ignore
-                  //       data.photoUrl = photoUrl.data.url;
-                  //     });
-                  //     setParticipationDetails(participationDetailsCopy);
-                  //     let allData;
-                  //     if (totalContingent === 1) {
-                  //       allData = {
-                  //         ...data,
-                  //         participationDetails,
-                  //         contingent: [contingent1],
-                  //       };
-                  //     } else {
-                  //       allData = {
-                  //         ...data,
-                  //         participationDetails,
-                  //         contingent: [contingent1, contingent2],
-                  //       };
-                  //     }
-                  //     const res = await axios.post("/api/saveResponse", allData);
-                  //     console.log(res);
-                  //     showNotification({
-                  //       title: "Data Added Successfully",
-                  //       message: "Your data has been added successfully",
-                  //       color: "green",
-                  //       autoClose: 3 * 1000,
-                  //     });
-                  //     router.push("/");
-                  //   } catch (err) {
-                  //     console.log(err);
-                  //     showNotification({
-                  //       title: "Error",
-                  //       message: "Please fill all the data and try again.",
-                  //       color: "red",
-                  //       autoClose: 3 * 1000,
-                  //     });
-                  //   }
                 }}
               >
                 Save Form
