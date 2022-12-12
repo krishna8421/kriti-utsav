@@ -150,7 +150,9 @@ const Form = (props) => {
             </option>
             <option value="Participant">Participant</option>
             <option value="Student_Accompanist">Student Accompanist</option>
-            <option value="OTHERS">Professional (Outside) Accompanist</option>
+            <option value="Professional_(Outside)_Accompanist">
+              Professional (Outside) Accompanist
+            </option>
           </select>
         </div>
         <div className="flex w-9/12 justify-end">
