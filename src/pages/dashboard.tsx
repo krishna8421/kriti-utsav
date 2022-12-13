@@ -1049,7 +1049,6 @@ const Dashboard = () => {
                   const allData = {
                     ...data,
                     ContingentInCharge: [contingent1, contingent2],
-                    ParticipationDetails: participationDetails,
                   };
                   try {
                     const res = await axios.post("/api/saveResponse", allData, {
@@ -1067,12 +1066,12 @@ const Dashboard = () => {
                     setVisible(false);
                     reloadData();
                   } catch (err) {
-                    // showNotification({
-                    //   title: "ERROR",
-                    //   message: "Unable to save data",
-                    //   color: "red",
-                    //   autoClose: 3 * 1000,
-                    // });
+                    showNotification({
+                      title: "ERROR",
+                      message: "Unable to save data",
+                      color: "red",
+                      autoClose: 3 * 1000,
+                    });
                     setVisible(false);
                     reloadData();
                   }

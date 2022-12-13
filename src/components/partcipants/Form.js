@@ -173,8 +173,10 @@ const Form = (props) => {
               placeholder: {
                 color: "white",
                 fontWeight: "bold",
+                fontSize: "0.9em",
               },
               input: {
+                paddingBottom: "9px",
                 border: "none",
                 backgroundColor: `${
                   tabSection === 1
@@ -192,6 +194,9 @@ const Form = (props) => {
                 color: "white",
                 fontWeight: "bold",
                 padding: "9px",
+                width: "140px",
+                maxHeight: "40px",
+                overflowX: "hidden",
               },
             }}
             icon={<BiCloudUpload size={24} color="white" />}

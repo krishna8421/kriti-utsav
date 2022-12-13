@@ -3,9 +3,12 @@ import classNames from "classnames";
 import { GoDiffAdded } from "react-icons/go";
 import Form from "./partcipants/Form";
 import { v1 as uuid } from "uuid";
-import { Button } from "@mantine/core";
+import { Button, LoadingOverlay } from "@mantine/core";
 import { participationDetailsAtom } from "../store/participationDetails";
 import { useAtom } from "jotai";
+import Cookies from "js-cookie";
+import { showNotification } from "@mantine/notifications";
+import axios from "axios";
 
 const defaultFineArts = {
   id: uuid(),
@@ -68,7 +71,7 @@ const Participants = () => {
     participationDetailsAtom
   );
 
-  // const fineArts
+  const [visible, setVisible] = useState(false);
 
   const [fineArts, setFineArts] = useState([defaultFineArts]);
   const [literary, setLiterary] = useState([defaultLiterary]);
@@ -175,9 +178,38 @@ const Participants = () => {
       ]);
   };
 
-  const handleSaveDetails = () => {
+  const handleSaveDetails = async () => {
     const participation = fineArts.concat(literary, music, dance, theatre);
     setParticipationDetails(participation);
+    setVisible(true);
+    const token = Cookies.get("token");
+    try {
+      const res = await axios.post(
+        "/api/saveParticipatesDetails",
+        { ParticipationDetails: participation },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      showNotification({
+        title: "Data Added Successfully",
+        message: "Participants details added successfully",
+        color: "green",
+        autoClose: 3 * 1000,
+      });
+      setVisible(false);
+    } catch (err) {
+      showNotification({
+        title: "ERROR",
+        message: "Unable to save data",
+        color: "red",
+        autoClose: 3 * 1000,
+      });
+      setVisible(false);
+    }
   };
 
   return (
@@ -229,6 +261,7 @@ const Participants = () => {
           }
         )}
       >
+        <LoadingOverlay visible={visible} overlayBlur={2} />
         {/* form fillup */}
         {tabSection === 1 &&
           fineArts.map((fields, index) => (
