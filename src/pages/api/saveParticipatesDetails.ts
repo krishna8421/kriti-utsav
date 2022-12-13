@@ -49,7 +49,6 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
       // });
 
       ParticipationDetails?.map(async (d: any) => {
-        console.log({ ...d });
         await prisma.participationDetails.upsert({
           where: {
             id: d.id,
