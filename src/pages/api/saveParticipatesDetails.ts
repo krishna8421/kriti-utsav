@@ -24,7 +24,11 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { username } = decoded as { username: string };
 
-    const { ParticipationDetails } = req.body;
+    const {
+      ParticipationDetails = [],
+      ContingentInCharge = [],
+      ...UserResponse
+    } = req.body;
 
     const user = await prisma.user.findUnique({
       where: {
@@ -35,7 +39,7 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    // console.log(user);
+    console.log(user);
 
     if (!user) {
       return res.status(404).json({ error: "Something went wrong" });
@@ -48,21 +52,39 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
       //   UserResponse,
       // });
 
-      ParticipationDetails?.map(async (d: any) => {
-        await prisma.participationDetails.upsert({
-          where: {
-            id: d.id,
-          },
-          create: {
-            userResponseId: user.UserResponse?.id,
-            ...d,
-          },
-          update: {
-            ...d,
-          },
-        });
-      });
+      // ParticipationDetails?.map(async (d: any) => {
+      //   await prisma.participationDetails.upsert({
+      //     where: {
+      //       id: d.id,
+      //     },
+      //     create: {
+      //       userResponseId: user.UserResponse?.id,
+      //       ...d,
+      //     },
+      //     update: {
+      //       ...d,
+      //     },
+      //   });
+      // });
 
+      await Promise.all(
+        ParticipationDetails?.map(async (d: any) => {
+          // console.log({ ...d });
+          await prisma.participationDetails.upsert({
+            where: {
+              id: d.id,
+            },
+            create: {
+              userResponseId: user.UserResponse?.id,
+              ...d,
+            },
+            update: {
+              ...d,
+            },
+          });
+        })
+      );
+      //     );
       return res.status(200).json({
         message: "Updated",
         data: await prisma.userResponse.findUnique({
@@ -72,7 +94,49 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         }),
       });
+
+      // ParticipationDetails?.map(async (d: any) => {
+      //   await prisma.participationDetails.delete({
+      //     where: {
+      //       id: d.id,
+      //     },
+      //   });
+      // });
+      // ParticipationDetails?.map(async (d: any) => {
+      //   await prisma.participationDetails.create({
+      //     data: {[...d]}
+      //   });
+      // });
+      // await prisma.userResponse.update({
+      //   where: {
+      //     id: user.UserResponse.id,
+      //   },
+      //   data: {
+      //     ParticipationDetails: {
+      //       create: [...ParticipationDetails],
+      //     },
+      //   },
+      // });
+      // return res.status(200).json({
+      //   message: "Created",
+      // });
     }
+
+    const create = await prisma.userResponse.create({
+      data: {
+        userId: user.id,
+        ParticipationDetails: {
+          create: [...ParticipationDetails],
+        },
+      },
+      include: {
+        ParticipationDetails: true,
+      },
+    });
+    return res.status(200).json({
+      message: "Created",
+      data: create,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Something went wrong" });
