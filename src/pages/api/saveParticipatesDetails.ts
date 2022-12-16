@@ -51,7 +51,7 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
       //   ContingentInCharge,
       //   UserResponse,
       // });
-
+      // ****Old gen****
       // ParticipationDetails?.map(async (d: any) => {
       //   await prisma.participationDetails.upsert({
       //     where: {
@@ -66,7 +66,7 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
       //     },
       //   });
       // });
-
+      // **** New gen ****
       await Promise.all(
         ParticipationDetails?.map(async (d: any) => {
           // console.log({ ...d });
@@ -84,7 +84,6 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
           });
         })
       );
-      //     );
       return res.status(200).json({
         message: "Updated",
         data: await prisma.userResponse.findUnique({
@@ -94,32 +93,6 @@ const Participates = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         }),
       });
-
-      // ParticipationDetails?.map(async (d: any) => {
-      //   await prisma.participationDetails.delete({
-      //     where: {
-      //       id: d.id,
-      //     },
-      //   });
-      // });
-      // ParticipationDetails?.map(async (d: any) => {
-      //   await prisma.participationDetails.create({
-      //     data: {[...d]}
-      //   });
-      // });
-      // await prisma.userResponse.update({
-      //   where: {
-      //     id: user.UserResponse.id,
-      //   },
-      //   data: {
-      //     ParticipationDetails: {
-      //       create: [...ParticipationDetails],
-      //     },
-      //   },
-      // });
-      // return res.status(200).json({
-      //   message: "Created",
-      // });
     }
 
     const create = await prisma.userResponse.create({
