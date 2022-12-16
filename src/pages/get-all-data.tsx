@@ -18,7 +18,6 @@ const Blog = () => {
       });
     setVisible(false);
   }, []);
-  console.log(allUniversity);
 
   return (
     <div className="relative p-6">

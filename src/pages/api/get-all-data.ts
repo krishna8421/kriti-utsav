@@ -1,5 +1,4 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
-import { use } from "react";
 import { prisma } from "../../server/db/client";
 
 const GetAllData = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,7 +8,9 @@ const GetAllData = async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, password } = req.query;
 
   if (!username || !password) {
-    return res.status(400).json({ error: "Forbidden (No username or password)" });
+    return res
+      .status(400)
+      .json({ error: "Forbidden (No username or password)" });
   }
 
   if (username !== "ksac" || password !== "7c57a-0b8f7-8c280-d7a5d") {
@@ -28,18 +29,20 @@ const GetAllData = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    let noNullResponse = []
-    console.log(users)
+    //@ts-ignore
+    let noNullResponse = [];
+    console.log(users);
     users.map((user) => {
       if (user.UserResponse !== null) {
-        noNullResponse.push(user)
+        noNullResponse.push(user);
       }
-    })
+    });
     res.status(200).json({
+      //@ts-ignore
       users: noNullResponse as any,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
