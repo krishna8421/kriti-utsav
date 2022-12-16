@@ -4,6 +4,7 @@ import ContingentInCharge from "../components/table/ContingentInCharge";
 import Travelinfo from "../components/table/Travelinfo";
 import PartcipantsStrength from "../components/table/PartcipantsStrength";
 import Participants from "../components/table/Participants";
+import Transaction from "../components/table/Transaction";
 
 const Blog = () => {
   const [allUniversity, setAllUniversity] = useState([]);
@@ -18,6 +19,8 @@ const Blog = () => {
       });
     setVisible(false);
   }, []);
+
+  console.log(allUniversity);
 
   return (
     <div className="relative p-6">
@@ -84,6 +87,19 @@ const Blog = () => {
                 details={
                   //@ts-ignore
                   univesityDetails.UserResponse.ParticipationDetails
+                }
+              />
+            </div>
+          </div>
+          <div className="mt-6">
+            <span className="rounded-lg bg-emerald-400 p-2 font-bold text-white">
+              Transaction Details
+            </span>
+            <div className="mt-3">
+              <Transaction
+                details={
+                  //@ts-ignore
+                  univesityDetails.UserResponse
                 }
               />
             </div>
