@@ -24,16 +24,30 @@ const Blog = () => {
     <div className="relative p-6">
       <LoadingOverlay visible={visible} overlayBlur={2} />
       {allUniversity.map((univesityDetails) => (
-        <div key={univesityDetails.id} className="mb-14">
+        <div
+          key={
+            //@ts-ignore
+            univesityDetails.id
+          }
+          className="mb-14"
+        >
           <span className="rounded-lg bg-emerald-800 p-2 font-bold text-white">
-            {univesityDetails.name}
+            {
+              //@ts-ignore
+              univesityDetails.name
+            }
           </span>
           <div className="mt-6">
             <span className="rounded-lg bg-emerald-400 p-2 font-bold text-white">
               Travelling Info
             </span>
             <div className="mt-3">
-              <Travelinfo details={univesityDetails.UserResponse} />
+              <Travelinfo
+                details={
+                  //@ts-ignore
+                  univesityDetails.UserResponse
+                }
+              />
             </div>
           </div>
           <div className="mt-6">
@@ -41,7 +55,12 @@ const Blog = () => {
               Participants Strength
             </span>
             <div className="mt-3">
-              <PartcipantsStrength details={univesityDetails.UserResponse} />
+              <PartcipantsStrength
+                details={
+                  //@ts-ignore
+                  univesityDetails.UserResponse
+                }
+              />
             </div>
           </div>
           <div className="mt-6">
@@ -50,7 +69,10 @@ const Blog = () => {
             </span>
             <div className="mt-3">
               <ContingentInCharge
-                details={univesityDetails.UserResponse.ContingentInCharge}
+                details={
+                  //@ts-ignore
+                  univesityDetails.UserResponse.ContingentInCharge
+                }
               />
             </div>
           </div>
@@ -60,7 +82,10 @@ const Blog = () => {
             </span>
             <div className="mt-3">
               <Participants
-                details={univesityDetails.UserResponse.ParticipationDetails}
+                details={
+                  //@ts-ignore
+                  univesityDetails.UserResponse.ParticipationDetails
+                }
               />
             </div>
           </div>
