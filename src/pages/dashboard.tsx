@@ -1051,12 +1051,11 @@ const Dashboard = () => {
                     ContingentInCharge: [contingent1, contingent2],
                   };
                   try {
-                    const res = await axios.post("/api/saveResponse", allData, {
+                    await axios.post("/api/saveResponse", allData, {
                       headers: {
                         Authorization: `Bearer ${token}`,
                       },
                     });
-                    // console.log(res);
                     showNotification({
                       title: "Data Added Successfully",
                       message: "Your data has been added successfully",

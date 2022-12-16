@@ -30,8 +30,7 @@ const GetAllData = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     //@ts-ignore
-    let noNullResponse = [];
-    console.log(users);
+    const noNullResponse = [];
     users.map((user) => {
       if (user.UserResponse !== null) {
         noNullResponse.push(user);
