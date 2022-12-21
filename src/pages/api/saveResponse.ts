@@ -64,6 +64,22 @@ const Seed = async (req: NextApiRequest, res: NextApiResponse) => {
         });
       });
 
+      ParticipationDetails?.map(async (d: any) => {
+        console.log({ ...d });
+        await prisma.participationDetails.upsert({
+          where: {
+            id: d.id,
+          },
+          create: {
+            userResponseId: user.UserResponse?.id,
+            ...d,
+          },
+          update: {
+            ...d,
+          },
+        });
+      });
+
       await prisma.userResponse.update({
         where: {
           id: user.UserResponse.id,
@@ -78,6 +94,7 @@ const Seed = async (req: NextApiRequest, res: NextApiResponse) => {
           where: { id: user.UserResponse.id },
           include: {
             ContingentInCharge: true,
+            ParticipationDetails: true,
           },
         }),
       });

@@ -181,35 +181,35 @@ const Participants = () => {
   const handleSaveDetails = async () => {
     const participation = fineArts.concat(literary, music, dance, theatre);
     setParticipationDetails(participation);
-    setVisible(true);
-    const token = Cookies.get("token");
-    try {
-      const res = await axios.post(
-        "/api/saveParticipatesDetails",
-        { ParticipationDetails: participation },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(res);
-      showNotification({
-        title: "Data Added Successfully",
-        message: "Participants details added successfully",
-        color: "green",
-        autoClose: 3 * 1000,
-      });
-      setVisible(false);
-    } catch (err) {
-      showNotification({
-        title: "ERROR",
-        message: "Unable to save data",
-        color: "red",
-        autoClose: 3 * 1000,
-      });
-      setVisible(false);
-    }
+    // setVisible(true);
+    // const token = Cookies.get("token");
+    // try {
+    //   const res = await axios.post(
+    //     "/api/saveParticipatesDetails",
+    //     { ParticipationDetails: participation },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   console.log(res);
+    //   showNotification({
+    //     title: "Data Added Successfully",
+    //     message: "Participants details added successfully",
+    //     color: "green",
+    //     autoClose: 3 * 1000,
+    //   });
+    //   setVisible(false);
+    // } catch (err) {
+    //   showNotification({
+    //     title: "ERROR",
+    //     message: "Unable to save data",
+    //     color: "red",
+    //     autoClose: 3 * 1000,
+    //   });
+    //   setVisible(false);
+    // }
   };
 
   return (
@@ -352,6 +352,7 @@ const Participants = () => {
         </Button>
 
         <Button
+          disabled={true}
           className={classNames(
             "mt-2 bg-custom-cream font-bold text-custom-red hover:bg-custom-cream/95 md:ml-2 md:mt-0",
             {

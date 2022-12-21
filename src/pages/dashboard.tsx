@@ -1040,8 +1040,12 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-12 flex w-full justify-end gap-6">
+            <div className="mt-12 flex w-full items-center justify-end gap-6">
+              <div className="text-xl font-bold text-custom-purple">
+                Registration closed
+              </div>
               <Button
+                disabled={true}
                 className="rounded-lg border-custom-purple bg-custom-purple text-xl font-bold text-white hover:border-2 hover:bg-custom-cream hover:text-custom-purple md:h-12 md:w-2/12"
                 onClick={async () => {
                   setVisible(true);
@@ -1049,6 +1053,7 @@ const Dashboard = () => {
                   const allData = {
                     ...data,
                     ContingentInCharge: [contingent1, contingent2],
+                    ParticipationDetails: participationDetails,
                   };
                   try {
                     await axios.post("/api/saveResponse", allData, {
